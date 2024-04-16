@@ -38,6 +38,6 @@
 
     <ng-template #modalFooter>
         <button nz-button nzBlock class="login-btn" (click)="handleLogin()">Đăng nhập</button>
-        <div class="login-modal__register">Bạn không có tài khoản? <span class="link-text">Đăng ký</span></div>
+        <div class="login-modal__register">Bạn không có tài khoản? <span class="link-text" (click)="showRegisterModal()">Đăng ký</span></div>
     </ng-template>
 </nz-modal>

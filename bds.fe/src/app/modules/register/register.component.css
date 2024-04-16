@@ -1,0 +1,42 @@
+.title {
+    text-align: center;
+    color: #EFB034;
+}
+
+[nz-button]{
+    color: #fff;
+    background-color: #EFB034;
+    border: none;
+    width: 100%;
+}
+
+[nz-input]{
+    border: none;
+    border-radius: 0;
+}
+
+.input-group {
+    border-bottom: 1px solid #000;
+    margin-bottom: 15px;
+}
+
+.link-text {
+    color: #EFB034;;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.register-modal__register {
+    text-align: center;
+    margin: 15px ;
+    font-weight: 500;
+}
+
+.error-message {
+    color: #DE3B40;
+}
+
+.error {
+    border-bottom: 1px solid #DE3B40 !important;
+}
+

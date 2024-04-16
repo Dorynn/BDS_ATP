@@ -14,4 +14,10 @@ export class HeaderComponent {
   showModal():void {
     this.dataService.changeStatusLoginModal(true);
   }
+
+  showRegisterModal():void {
+    console.log('clickkk');
+    
+    this.dataService.changeStatusRegisterModal(true);
+  }
 }

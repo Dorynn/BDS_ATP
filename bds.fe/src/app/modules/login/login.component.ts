@@ -49,4 +49,9 @@ export class LoginComponent implements OnInit{
     this.isInvalid = false;
     this.isEmpty = false;    
   }
+
+  showRegisterModal(){
+    this.dataService.changeStatusLoginModal(false);
+    this.dataService.changeStatusRegisterModal(true);
+  }
 }

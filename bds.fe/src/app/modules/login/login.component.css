@@ -17,8 +17,9 @@ form input:focus {
 }
 
 .link-text {
-    color: #EFB034;
+    color: #EFB034;;
     text-decoration: underline;
+    cursor: pointer;
 }
 
 .login-btn {
