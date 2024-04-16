@@ -30,10 +30,22 @@
     color: #f78e10;
     font-weight: 500;
     margin-right: 15px;
+    border: none;
 }
 
 .header__login button:last-child {
     color: #fff;
     font-weight: 500;
     background-color: #f78e10;
+    border: none;
+}
+
+.header__login button:first-child:hover {
+    background-color: #f78f1023;
+    border: none;
+}
+
+.header__login button:last-child:hover {
+    background-color: #d97b08;
+    border: none
 }

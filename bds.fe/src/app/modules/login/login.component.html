@@ -1,1 +1,43 @@
-<p>login works!</p>
+<nz-modal [(nzVisible)]="isVisible" [nzTitle]="modalTitle" [nzContent]="modalContent" [nzFooter]="modalFooter"
+    (nzOnCancel)="handleCancel()">
+    <ng-template #modalTitle><h2 class="title">Đăng nhập</h2></ng-template>
+
+    <ng-template #modalContent>
+        <form class="login-modal" nz-form>
+            <div nz-row [class.error]="isInvalid || isEmpty">
+                <span class="prefix" nz-col [nzSpan]="2">
+                    <i class="fa-regular fa-user"></i>
+                </span>
+                <input [(ngModel)]="phonenumber" type="text" name="phonenumber" nz-input nz-col [nzSpan]="22" placeholder="Nhập số điện thoại của bạn" (keyup)="handleOnchange()">
+            </div>
+            <div nz-row [class.error]="isInvalid || isEmpty">
+                <span nz-col [nzSpan]="2" class="prefix">
+                    <i class="fa-solid fa-lock"></i>
+                </span>
+                <input [(ngModel)]="password" nz-col [nzSpan]="20" [type]="passwordType" nz-input placeholder="Nhập mật khẩu của bạn" (keyup)="handleOnchange()" name="password">
+                <span nz-col [nzSpan]="2" class="suffix" (click)="showPassword()">
+                    @if(isShowPassword === true) {
+                        <i class="fa-regular fa-eye"></i>
+                    }@else {
+                        <i class="fa-regular fa-eye-slash"></i>
+                    }
+                </span>
+            </div>
+            @if(isEmpty){
+                <p class="error-message">Vui lòng nhập đầy đủ thông tin để đăng nhập</p>
+            }
+            @if(isInvalid){
+                <p class="error-message">Số điện thoại hoặc mật khẩu không đúng. Vui lòng nhập lại</p>
+            }
+            <div nz-row nzJustify="space-between">
+                <label for="rememberPassword" nz-col><input id="rememberPassword" type="checkbox"> Ghi nhớ mật khẩu</label>
+                <span class="link-text" nz-col>Quên mật khẩu?</span>
+            </div>
+        </form>
+    </ng-template>
+
+    <ng-template #modalFooter>
+        <button nz-button nzBlock class="login-btn" (click)="handleLogin()">Đăng nhập</button>
+        <div class="login-modal__register">Bạn không có tài khoản? <span class="link-text">Đăng ký</span></div>
+    </ng-template>
+</nz-modal>

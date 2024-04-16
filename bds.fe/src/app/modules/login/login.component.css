@@ -1,0 +1,43 @@
+form [nz-row]:first-child, form [nz-row]:nth-child(2) {
+    border-bottom: 1px solid #9095A1;
+    margin-bottom: 15px;
+}
+
+form input {
+    border: none;
+}
+
+form input:focus {
+    outline: none;
+    box-shadow: none;
+}
+
+.login-modal__register {
+    text-align: center;
+}
+
+.link-text {
+    color: #EFB034;
+    text-decoration: underline;
+}
+
+.login-btn {
+    background-color: #EFB034;
+    color: #fff;
+    font-weight: 500;
+    margin-bottom: 15px;
+    border: none;
+}
+
+.title {
+    text-align: center;
+    color: #EFB034;
+}
+
+.error-message {
+    color: #DE3B40;
+}
+
+.error {
+    border-bottom: 1px solid #DE3B40 !important;
+}

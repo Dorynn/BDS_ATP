@@ -34,6 +34,7 @@ import { NzCarouselModule } from 'ng-zorro-antd/carousel';
 import { NzSliderModule } from 'ng-zorro-antd/slider';
 import { NzSelectModule } from 'ng-zorro-antd/select';
 import { NzInputNumberModule } from 'ng-zorro-antd/input-number';
+import { NzModalModule } from 'ng-zorro-antd/modal';
 
 registerLocaleData(en);
 
@@ -68,7 +69,8 @@ registerLocaleData(en);
     NzCarouselModule,
     NzSliderModule,
     NzSelectModule,
-    NzInputNumberModule
+    NzInputNumberModule,
+    NzModalModule
   ],
   providers: [
     { provide: NZ_I18N, useValue: en_US },

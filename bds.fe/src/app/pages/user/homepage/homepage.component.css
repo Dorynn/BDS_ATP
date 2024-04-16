@@ -56,11 +56,6 @@ div.button-group {
     padding: 15px 40px ;
 }
 
-[nz-button] {
-    width: 80px;
-    border-radius: 5px;
-}
-
 .button-group button:last-child {
     background-color: #9095A1;
     color: #fff;
@@ -81,7 +76,7 @@ div.button-group {
 
 .project-detail button {
     float: right;
-    padding: 0 5px;
+    /* padding: 0 10px; */
     color: #9095A1;
 }
 
