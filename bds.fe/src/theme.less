@@ -1,0 +1,43 @@
+
+// Custom Theming for NG-ZORRO
+// For more information: https://ng.ant.design/docs/customize-theme/en
+@import "../node_modules/ng-zorro-antd/ng-zorro-antd.less";
+
+// Override less variables to here
+// View all variables: https://github.com/NG-ZORRO/ng-zorro-antd/blob/master/components/style/themes/default.less
+
+// @primary-color: #1890ff;
+
+.ant-slider-track {
+    background-color: #323743;
+}
+
+.ant-slider:hover .ant-slider-track{
+    background-color: #3b3f4a;
+}
+
+.ant-slider-handle {
+    border: solid 2px #323743
+}
+
+.ant-pagination-item, .ant-pagination-next button, .ant-pagination-prev ::-webkit-scrollbar-button{
+    border: none !important;
+}
+
+.ant-pagination-item-active a {
+    color: #000;
+}
+
+.ant-pagination-item-active {
+    border: 1px solid #000 !important;
+    border-radius: 50%;
+}
+
+.ant-pagination-item:hover a {
+    color: #000;
+    font-weight: 500;
+}
+
+.ant-pagination-prev .ant-pagination-item-link {
+    border: none !important;
+}

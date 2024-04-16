@@ -1,15 +1,20 @@
 import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import { Routes, RouterModule } from '@angular/router';
 import { AdminComponent } from './modules/main/admin/admin.component';
 import { MainComponent } from './modules/main/main.component';
 import { UserComponent } from './modules/main/user/user.component';
 import { HomepageComponent } from './pages/user/homepage/homepage.component';
 
 const routes: Routes = [
+  // { path: '', pathMatch: 'full', redirectTo: '/admin' },
   {
     path: '',
     component: MainComponent,
     children: [
+      {
+        path: 'admin',
+        component: AdminComponent
+      },
       {
         path: 'user',
         component: UserComponent,
@@ -22,13 +27,9 @@ const routes: Routes = [
             component: HomepageComponent
           }
         ]
-      },
-      {
-        path: 'admin',
-        component: AdminComponent
       }
     ]
-  }
+  },
 ];
 
 @NgModule({
