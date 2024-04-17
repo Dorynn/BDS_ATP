@@ -7,7 +7,6 @@
     color: #fff;
     background-color: #EFB034;
     border: none;
-    width: 100%;
 }
 
 [nz-input]{
@@ -19,6 +18,12 @@
     border-bottom: 1px solid #000;
     margin-bottom: 15px;
 }
+
+.input-group nz-select, .input-group nz-date-picker {
+    width: 100%;
+    border: none;
+}
+
 
 .link-text {
     color: #EFB034;;
@@ -39,4 +44,6 @@
 .error {
     border-bottom: 1px solid #DE3B40 !important;
 }
+
+
 

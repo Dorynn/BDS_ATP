@@ -20,6 +20,7 @@ export class RegisterComponent {
     private dataService: DataService
   ){
     this.dataService.isVisibleRegisterModal.subscribe(status=>this.isVisible = status)
+    this.dataService.isVisibleRegisterModalStep2.subscribe(status => this.isVisible2 = status)
   }
 
   handleCancel(){
@@ -41,5 +42,11 @@ export class RegisterComponent {
   showLoginModal(){
     this.dataService.changeStatusRegisterModal(false);
     this.dataService.changeStatusLoginModal(true);
+  }
+
+  goToNextStep(){
+    // this.dataService.changeStatusRegisterModalStep2(true);
+    this.isVisible2 = true;
+    this.isVisible = false;
   }
 }

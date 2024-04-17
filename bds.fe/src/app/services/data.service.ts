@@ -7,8 +7,10 @@ import { BehaviorSubject } from 'rxjs';
 export class DataService {
   private statusLoginModal = new BehaviorSubject(false);
   private statusRegisterModal = new BehaviorSubject(false);
+  private statusRegisterModalStep2 = new BehaviorSubject(false);
   isVisibleLoginModal = this.statusLoginModal.asObservable();
   isVisibleRegisterModal = this.statusRegisterModal.asObservable();
+  isVisibleRegisterModalStep2 = this.statusRegisterModalStep2.asObservable()
 
   
 
@@ -20,5 +22,9 @@ export class DataService {
 
   changeStatusRegisterModal (status: boolean) {
     this.statusRegisterModal.next(status);
+  }
+
+  changeStatusRegisterModalStep2 (status: boolean) {
+    this.statusRegisterModalStep2.next(status);
   }
 }
