@@ -9,12 +9,15 @@ import { DataService } from '../../services/data.service';
 export class RegisterComponent {
   isVisible: boolean = false;
   isVisible2: boolean = false;
+  phoneNumber: string = '';
   password: string = '';
   rePassword: string = '';
   passwordType: string = 'password';
   rePasswordType: string = 'password';
   isShowPassword: boolean = false;
   isShowRePassword: boolean = false;
+
+  
 
   constructor(
     private dataService: DataService
@@ -48,5 +51,12 @@ export class RegisterComponent {
     // this.dataService.changeStatusRegisterModalStep2(true);
     this.isVisible2 = true;
     this.isVisible = false;
+  }
+
+  getOtpCode(){
+    if(this.phoneNumber == ''){
+
+    }
+
   }
 }

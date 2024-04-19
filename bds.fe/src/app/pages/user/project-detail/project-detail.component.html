@@ -1,0 +1,29 @@
+<div class="thumbnail" nz-flex nzAlign="center" nzJustify="center">
+    <div nz-row class="thumbnail__box">
+        <div nz-col [nzSpan]="12" class="thumbnail__text-box">
+            <h3>{{projectDetail.name}}</h3>
+            <p>{{projectDetail.description}}</p>
+        </div>
+        <div class="project-image" nz-col [nzSpan]="12"></div>
+    </div>
+</div>
+
+@for(area of areaList; track area.id){
+    <div class="area-group">
+        <h2>{{area.name}}</h2>
+        <swiper-container loop="true" slides-per-view="4" mousewheel-force-to-axis="true" space-between="15" navigation="true">
+            @for(land of area.lands; track land){    
+                <swiper-slide class="swiper-slide">
+                    <div class="wapper">
+                        <img class="image" src="../../../../assets/img/flat2.jpg" alt="">
+                        <span class="status">{{land.status}}</span>
+                        <span class="">{{land.name}}</span>
+                        <span class="brief">{{land.description}} | {{land.acreage}} m2 | TN-TB</span>
+                        <span class="price">{{land.price}}tr/m2</span>
+                    </div>
+                    <span class="deposit_price">Giá đặt cọc: {{land.deposit}} triệu đồng</span>
+                </swiper-slide>
+            }        
+        </swiper-container>
+    </div>
+}

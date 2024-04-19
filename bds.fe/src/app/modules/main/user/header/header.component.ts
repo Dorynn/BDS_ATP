@@ -16,8 +16,6 @@ export class HeaderComponent {
   }
 
   showRegisterModal():void {
-    console.log('clickkk');
-    
     this.dataService.changeStatusRegisterModal(true);
   }
 }

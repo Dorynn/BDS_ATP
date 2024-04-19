@@ -1,16 +1,16 @@
 <nz-carousel nzAutoPlay [nzAutoPlaySpeed]="5000">
-    @for (item of newProjectList; track item) {
+    @for (item of projectList; track item) {
     <div nz-carousel-content >
         <div nz-row nzAlign="middle">
             <div nz-col [nzSpan]="6" class="project-info">
-                <div class="title">{{item.title}}</div>
-                <div class="project-name">{{item.projectName}}</div>
+                <!-- <div class="title">{{item.title}}</div> -->
+                <div class="project-name">{{item.name}}</div>
                 <p class="desc">{{item.description}}</p>
-                <button nz-button nzType="text">Khám phá dự án<span nz-icon nzType="right"
+                <button nz-button nzType="text" (click)="goToProjectDetail(item.id)">Khám phá dự án<span nz-icon nzType="right"
                         nzTheme="outline"></span></button>
             </div>
             <div nz-col [nzSpan]="18">
-                <img [src]="item.imgUrl" alt="" width="100%">
+                <img src="https://storage.googleapis.com/vinhomes-data-02/styles/images_1520_x_680/public/2021_06/3_1624089856.jpg?itok=3lwZzTfH" alt="" width="100%">
             </div>
         </div>
     </div>
@@ -64,22 +64,20 @@
         <div class="project-list">
             <h1>DANH SÁCH DỰ ÁN</h1>
             <nz-divider></nz-divider>
-            @for(item of newProjectList; track item) {
+            @for(item of projectList; track item) {
             <div class="project-detail" nz-row [nzGutter]="24">
                 <div nz-col [nzSpan]="12"><img
                         src="https://cf.bstatic.com/xdata/images/hotel/max1280x900/541778668.jpg?k=90f51fc0e7c2d79d22d888b2d0ebc2156ae9cacbd68973f4a892250e1ef5826f&o=&hp=1"
                         alt="" width="100%" height="100%"></div>
                 <div nz-col [nzSpan]="12">
-                    <h2 class="project-detail__title">Vinhome Smart City</h2>
-                    <p>Tại Vinhomes Smart City, chúng tôi mong muốn mang đến cho bạn một nơi tận hưởng cuộc sống sang
-                        trọng, đẳng cấp, một đại đô thị thông minh đầu tiên tại Việt Nam</p>
-                    <p class="text-bold">Vị trí: Tây mỗ, Hà Đông, Hà Nội</p>
-                    <p class="text-bold">Giá: 1,9 đến 18 tỷ</p>
-                    <button nz-button nzShape="round">Xem chi tiết</button>
+                    <h2 class="project-detail__title">{{item.name}}</h2>
+                    <p>{{item.description}}</p>
+                    <p class="text-bold">Vị trí: {{item.address}}</p>
+                    <button nz-button nzShape="round" (click)="goToProjectDetail(item.id)">Xem chi tiết</button>
                 </div>
             </div>
             }
         </div>
-        <nz-pagination [nzPageIndex]="1" [nzTotal]="500"></nz-pagination>
+        <nz-pagination [nzPageIndex]="currentPage" [nzTotal]="total" [nzPageSize]="pageSize" (nzPageIndexChange)="handleChangePage($event)"></nz-pagination>
     </div>
 </div>

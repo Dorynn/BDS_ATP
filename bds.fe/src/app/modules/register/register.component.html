@@ -6,7 +6,7 @@
         <div nz-row [nzGutter]="16" nzJustify="space-between">
             <div class="input-group" nz-col [nzSpan]="18" nz-flex>
                 <span nz-col [nzSpan]="2"><i class="fa-solid fa-phone"></i></span>
-                <input type="text" nz-input nz-col [nzSpan]="16">
+                <input [(ngModel)]="phoneNumber" type="text" nz-input nz-col [nzSpan]="16">
             </div>
             <button nz-button nz-col [nzSpan]="6">Lấy mã xác thực</button>
         </div>
@@ -81,7 +81,7 @@
         <div nz-row nzJustify="space-between">
             <div nz-col [nzSpan]="11" class="input-group">
                 <label for="dob">Ngày sinh</label>
-                <nz-date-picker></nz-date-picker>
+                <nz-date-picker nzPlaceHolder="dd/mm/yyy"></nz-date-picker>
             </div>
             <div nz-col [nzSpan]="11" class="input-group">
                 <label for="dob">Giới tính</label>

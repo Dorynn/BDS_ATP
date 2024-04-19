@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -36,6 +36,10 @@ import { NzSelectModule } from 'ng-zorro-antd/select';
 import { NzInputNumberModule } from 'ng-zorro-antd/input-number';
 import { NzModalModule } from 'ng-zorro-antd/modal';
 import { NzDatePickerModule } from 'ng-zorro-antd/date-picker';
+import { ProjectDetailComponent } from './pages/user/project-detail/project-detail.component';
+import { NzBadgeModule } from 'ng-zorro-antd/badge';
+import { ProjectManagerComponent } from './pages/admin/project-manager/project-manager.component';
+import { AddProjectComponent } from './pages/admin/add-project/add-project.component';
 
 registerLocaleData(en);
 
@@ -50,7 +54,10 @@ registerLocaleData(en);
     LoginComponent,
     RegisterComponent,
     HomepageComponent,
-    DashboardComponent
+    DashboardComponent,
+    ProjectDetailComponent,
+    ProjectManagerComponent,
+    AddProjectComponent
   ],
   imports: [
     BrowserModule,
@@ -72,13 +79,15 @@ registerLocaleData(en);
     NzSelectModule,
     NzInputNumberModule,
     NzModalModule,
-    NzDatePickerModule
+    NzDatePickerModule,
+    NzBadgeModule
   ],
   providers: [
     { provide: NZ_I18N, useValue: en_US },
     provideAnimationsAsync(),
-    provideHttpClient()
+    provideHttpClient(),
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class AppModule { }

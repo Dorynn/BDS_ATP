@@ -2,22 +2,25 @@
     <nz-sider nzCollapsible [(nzCollapsed)]="isCollapsed" [nzTrigger]="null">
       <div class="logo"></div>
       <ul nz-menu nzTheme="dark" nzMode="inline">
-        <li nz-submenu nzTitle="User" nzIcon="user">
-          <ul>
-            <li nz-menu-item>Tom</li>
-            <li nz-menu-item>Bill</li>
-            <li nz-menu-item>Alex</li>
-          </ul>
-        </li>
-        <li nz-submenu nzTitle="Team" nzIcon="team">
-          <ul>
-            <li nz-menu-item>Team 1</li>
-            <li nz-menu-item>Team 2</li>
-          </ul>
+        <li nz-menu-item>
+          <span nz-icon nzType="user"></span>
+          <span>Quản lý người dùng</span>
         </li>
         <li nz-menu-item>
-          <span nz-icon nzType="file"></span>
-          <span>File</span>
+          <span nz-icon nzType="file-text"></span>
+          <span>Quản lý dự án</span>
+        </li>
+        <li nz-menu-item>
+          <span nz-icon nzType="pie-chart"></span>
+          <span>Quản lý khu vực</span>
+        </li>
+        <li nz-menu-item>
+          <span nz-icon nzType="home"></span>
+          <span>Quản lý lô đất</span>
+        </li>
+        <li nz-menu-item>
+          <span nz-icon nzType="qrcode"></span>
+          <span>Quản lý QR</span>
         </li>
       </ul>
     </nz-sider>
