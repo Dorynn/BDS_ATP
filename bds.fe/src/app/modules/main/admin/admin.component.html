@@ -1,8 +1,20 @@
 <nz-layout>
-    <nz-sider nzCollapsible [(nzCollapsed)]="isCollapsed" [nzTrigger]="null">
-      <div class="logo"></div>
-      <ul nz-menu nzTheme="dark" nzMode="inline">
-        <li nz-menu-item>
+  <nz-header nz-row nzAlign="middle">
+    <div class="header__logo" nz-flex nzAlign="center" nz-col [nzSpan]="2">
+      <img src="https://www.anthinhphatjsc.com/images/logo_raw.PNG" alt="logo" class="logo">
+      <h1 nz-typography>BDS</h1>
+    </div>
+    <span class="trigger" nz-icon [nzType]="isCollapsed ? 'menu-unfold' : 'menu-fold'"
+      (click)="isCollapsed = !isCollapsed" nz-col [nzSpan]="2"></span>
+    <div nz-col [nzOffset]="18">
+      <i class="fa-solid fa-user" style="color: #f57222; margin-right: 10px;"></i>
+      <span style="color: #f57222; font-weight: 500; text-transform: uppercase;">Admin</span>
+    </div>
+  </nz-header>
+  <nz-layout>
+    <nz-sider nzCollapsible [(nzCollapsed)]="isCollapsed" [nzTrigger]="null" class="background-orange">
+      <ul nz-menu nzMode="inline" class="background-orange">
+        <li nz-menu-item [routerLink]="">
           <span nz-icon nzType="user"></span>
           <span>Quản lý người dùng</span>
         </li>
@@ -24,22 +36,10 @@
         </li>
       </ul>
     </nz-sider>
-    <nz-layout>
-      <nz-header>
-        <span
-          class="trigger"
-          nz-icon
-          [nzType]="isCollapsed ? 'menu-unfold' : 'menu-fold'"
-          (click)="isCollapsed = !isCollapsed"
-        ></span>
-      </nz-header>
-      <nz-content>
-        <nz-breadcrumb>
-          <nz-breadcrumb-item>User</nz-breadcrumb-item>
-          <nz-breadcrumb-item>Bill</nz-breadcrumb-item>
-        </nz-breadcrumb>
-        <div class="inner-content">Bill is a cat.</div>
-      </nz-content>
-      <nz-footer>Ant Design ©2020 Implement By Angular</nz-footer>
-    </nz-layout>
+    <nz-content>
+      <div class="inner-content">
+        <router-outlet></router-outlet>
+      </div>
+    </nz-content>
   </nz-layout>
+</nz-layout>

@@ -1,0 +1,59 @@
+<nz-modal [(nzVisible)]="isVisible">
+    <ng-container *nzModalTitle>
+        <div class="modal__header">
+            <p>Thanh toán chuyển khoản</p>
+            <p>29 phút 49 giây</p>
+            <p>Thời hạn thanh toán</p>
+        </div>
+    </ng-container>
+
+    <ng-container *nzModalContent>
+        <div class="modal__content">
+            <div class="qr-box">
+                <div class="qr-box__bankname" nz-row nzJustify="space-between">
+                    <span class="vietqr">VIETQR</span>
+                    <span class="vpbank">VPBank</span>
+                </div>
+                <img src="https://qr.sepay.vn/img?acc=9704229205543849416&bank=MB&amount=100000&des=testQR" alt="qr-image">
+                <p class="napas">napas 247</p>
+            </div>
+
+            <div class="payment-info">
+                <div nz-flex nzJustify="space-between">
+                    <span>Ngân hàng hưởng thụ</span>
+                    <span>VPBank</span>
+                </div>
+                <div nz-flex nzJustify="space-between">
+                    <span>Số tài khoản</span>
+                    <span>012245944</span>
+                </div>
+                <div nz-flex nzJustify="space-between">
+                    <span>Số tiền</span>
+                    <span>5000000</span>
+                </div>
+                <div nz-flex nzJustify="space-between">
+                    <span>
+                        Người nhận
+                    </span>
+                    <span>
+                        Công ty CPBDSTT An Thịnh Phát
+                    </span>
+                </div>
+                <div nz-flex nzJustify="space-between">
+                    <span>Nội dung</span>
+                    <span>
+                        Số điện thoại + tên bds
+                    </span>
+                </div>
+                <div>Vui lòng chuyển <strong>ĐÚNG: Số tài khoản - số tiền - nội dung giao dịch để giao dịch</strong> được ghi nhận</div>
+            </div>
+        </div>
+    </ng-container>
+
+    <ng-container *nzModalFooter>
+        <div class="modal__footer">
+            <button nz-button (click)="onCancel()">Hủy</button>
+            <button nz-button (click)="handleTransaction()">Tôi đã chuyển khoản</button>
+        </div>
+    </ng-container>
+</nz-modal>

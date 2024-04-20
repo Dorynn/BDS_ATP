@@ -40,6 +40,20 @@ import { ProjectDetailComponent } from './pages/user/project-detail/project-deta
 import { NzBadgeModule } from 'ng-zorro-antd/badge';
 import { ProjectManagerComponent } from './pages/admin/project-manager/project-manager.component';
 import { AddProjectComponent } from './pages/admin/add-project/add-project.component';
+import { NzTableModule } from 'ng-zorro-antd/table';
+import { AreaManagementComponent } from './pages/admin/area-management/area-management.component';
+import { AddAreaComponent } from './pages/admin/add-area/add-area.component';
+import { EditProjectComponent } from './pages/admin/edit-project/edit-project.component';
+import { EditAreaComponent } from './pages/admin/edit-area/edit-area.component';
+import { EditLandComponent } from './pages/admin/edit-land/edit-land.component';
+import { AddLandComponent } from './pages/admin/add-land/add-land.component';
+import { TransactionManagementComponent } from './pages/admin/transaction-management/transaction-management.component';
+import { ViewTransactionComponent } from './pages/admin/view-transaction/view-transaction.component';
+import { AreaDetailComponent } from './pages/user/area-detail/area-detail.component';
+import { LandInfoBoxComponent } from './components/land-info-box/land-info-box.component';
+import { LandInfoModalComponent } from './components/land-info-modal/land-info-modal.component';
+import { NzQRCodeModule } from 'ng-zorro-antd/qr-code';
+import { PaymentModalComponent } from './components/payment-modal/payment-modal.component';
 
 registerLocaleData(en);
 
@@ -57,7 +71,19 @@ registerLocaleData(en);
     DashboardComponent,
     ProjectDetailComponent,
     ProjectManagerComponent,
-    AddProjectComponent
+    AddProjectComponent,
+    AreaManagementComponent,
+    AddAreaComponent,
+    EditProjectComponent,
+    EditAreaComponent,
+    EditLandComponent,
+    AddLandComponent,
+    TransactionManagementComponent,
+    ViewTransactionComponent,
+    AreaDetailComponent,
+    LandInfoBoxComponent,
+    LandInfoModalComponent,
+    PaymentModalComponent
   ],
   imports: [
     BrowserModule,
@@ -80,7 +106,9 @@ registerLocaleData(en);
     NzInputNumberModule,
     NzModalModule,
     NzDatePickerModule,
-    NzBadgeModule
+    NzBadgeModule,
+    NzTableModule,
+    NzQRCodeModule
   ],
   providers: [
     { provide: NZ_I18N, useValue: en_US },

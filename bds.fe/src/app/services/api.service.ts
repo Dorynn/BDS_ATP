@@ -18,7 +18,7 @@ export class ApiService {
   }
 
   addProject(request: any):Observable<any>{
-    return this.http.post(`${baseUrl}/projects`,request);
+    return this.http.post(`${baseUrl}/projects`,{}, {params:request});
   }
 
   getProjectById(id: string | null):Observable<any> {

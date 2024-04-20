@@ -9,16 +9,25 @@ import { SocketService } from '../../../services/socket.service';
 })
 export class AddProjectComponent implements OnInit {
   name: string = '';
-  description: string = '';
-  thumbnail: string = '';
-  status: number = 0;
-  address: string = '';
-  district: string = '';
   type: string = '';
+  status: number = 0;
+  thumbnail: string = '';
+  description: string = '';
+  district: number = 0;
+  address: string = '';
   investor: string = '';
+  bankHost: string = '';
+  bankNumber: string = '';
+  bankName: string = '';
+  qrImage: string = '';
+  investorPhoneNumber: string = '';
+  startDate: Date = new Date();
+  endDate: Date = new Date();
   total: number = 0;
   stompClient: any;
-
+  provinceList: any = [];
+  districtList: any = [];
+  
   constructor(
     private apiService: ApiService,
     private socketService: SocketService
@@ -40,15 +49,16 @@ export class AddProjectComponent implements OnInit {
 
   addProject(){
     let request = {
-      name: "Vinhome Mega Grand World14",
-      description: "Nhắc đến các khu đô thị của Vingroup tại Hà Nội, không thể không kể đến đại đô thị phía Tây Thủ đô – Vinhomes Smart City. Vinhomes Smart City nằm trên địa phận 2 phường Tây Mỗ & Đại Mỗ, quận Nam Từ Liêm, Hà Nội, ôm trọn vành đai 3, 5 của đại lộ Thăng Long cũng như 3 tuyến metro 5, 6, 7 trọng yếu. Do đó, vị trí Vinhomes Smart City được đánh giá là nơi hưởng trọn lợi thế hạ tầng giao thông hiện đại, đồng bộ.",
-      thumbnail: "",
-      address: "Phú Đô, quận Nam Từ Liêm, Hà Nội",
-      startDate: "2022-05-25",
-      endDate: "2023-04-29",
-      projectTypeId: 1,
+      name: this.name,
+      description: this.description,
+      thumbnail: this.thumbnail,
+      address: this.address,
+      startDate: this.startDate,
+      endDate: this.endDate,
+      projectTypeId: this.type,
       investorId: "685c78d7-fd57-11ee-a6ee-507b9dcb621a",
-      districtId: 13
+      districtId: 13,
+      status: 0
     }
     this.apiService.addProject(request).subscribe({
       next: (res:any)=>{

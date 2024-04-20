@@ -1,0 +1,20 @@
+<nz-modal [(nzVisible)]="isVisible" [nzStyle]="{ top: '30px' }" (nzOnCancel)="handleCancel()">
+    <div *nzModalTitle style="padding: 0!important">
+        <img src="../../../assets/img/flat2.jpg" alt="flat-image" width="100%">
+    </div>
+    <div *nzModalContent>
+        <h1>TC11103</h1>
+        <p>Giá niêm yết: 5.7 tỷ đồng</p>
+        <p>Giá đặt cọc: 50 triệu đồng</p>
+        <div class="status">Đang mở bán</div>
+        <h3>Mô tả</h3>
+        <div><strong>Dự án: </strong>Vinhome Smart City</div>
+        <div><strong>Dự án: </strong>Vinhome Smart City</div>
+        <div><strong>Dự án: </strong>Vinhome Smart City</div>
+        <div><strong>Dự án: </strong>Vinhome Smart City</div>
+        <div><strong>Dự án: </strong>Vinhome Smart City</div>
+    </div>
+    <div *nzModalFooter>
+        <button nz-button (click)="showConfirm()">Đặt cọc</button>
+    </div>
+</nz-modal>

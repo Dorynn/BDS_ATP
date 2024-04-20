@@ -1,23 +1,89 @@
-<p>total: {{total}}</p>
+<h2>Thêm dự án</h2>
 
-
-<!-- <input type="text" nz-input placeholder="Tên dự án">
-<nz-select></nz-select>
-
-<div class="input-group">
-    <input type="radio" name="status">
-    <input type="radio" name="status">
-    <input type="radio" name="status">
+<div nz-row [nzGutter]="32">
+    <div  nz-col [nzSpan]="6">
+        <input [(ngModel)]="name" type="text" nz-input placeholder="Tên dự án">
+        <p>Tên dự án</p>
+    </div>
+    <div nz-col [nzSpan]="6">
+        <nz-select [(ngModel)]="type">
+            <nz-option [nzValue]="1" [nzLabel]="'Căn hộ'"></nz-option>
+            <nz-option [nzValue]="2" [nzLabel]="'Chung cư'"></nz-option>
+        </nz-select>
+        <p>Loại dự án</p>
+    </div>
+    <div  nz-col [nzSpan]="6">
+        <nz-select>
+            <nz-option [nzValue]="0" nzLabel="Sắp mở bán"></nz-option>
+            <nz-option [nzValue]="1" nzLabel="Đang mở bán"></nz-option>
+            <nz-option [nzValue]="2" nzLabel="Đã kết thúc"></nz-option>
+        </nz-select>
+        <p>Trạng thái</p>
+    </div>
+    <div nz-col [nzSpan]="6">
+        <input [(ngModel)]="thumbnail" nz-input type="file">
+        <p>Ảnh dự án</p>
+    </div>
 </div>
 
-<input type="file">
+<div nz-row>
+    <textarea [(ngModel)]="description" nz-input name="content" id="content" nz-col [nzSpan]="24"></textarea>
+    <p>Mô tả</p>
+</div>
 
-<textarea name="content" id="content" cols="30" rows="10"></textarea>
+<div nz-row [nzGutter]="32">
+    <div nz-col [nzSpan]="6">
+        <nz-select></nz-select>
+        <p>Tỉnh/Thành phố</p>
+    </div>
+    <div nz-col [nzSpan]="6">
+        <nz-select [(ngModel)]="district"></nz-select>
+        <p>Quận/Huyện</p>
+    </div>
+    <div nz-col [(ngModel)]="address" [nzSpan]="12">
+        <input type="text" nz-input>
+        <p>Địa chỉ cụ thể</p>
+    </div>
+</div>
 
-<nz-select></nz-select>
-<nz-select></nz-select>
+<div nz-row [nzGutter]="32">
+    <div nz-col [nzSpan]="6">
+        <input [(ngModel)]="bankHost" type="text" nz-input nz-col>
+        <p>Chủ tài khoản</p>
+    </div>
+    <div nz-col [nzSpan]="6">
+        <input [(ngModel)]="bankNumber" type="text" nz-input nz-col>
+        <p>Số tài khoản</p>
+    </div>
+    <div nz-col [nzSpan]="6">
+        <input [(ngModel)]="bankName" type="text" nz-input nz-col>
+        <p>Tên ngân hàng</p>
+    </div>
+    <divnz-col [nzSpan]="6">
+        <input  [(ngModel)]="qrImage"  type="file" nz-input nz-col>
+        <p>Ảnh mã QR</p>
+    </divnz-col>
+</div>
 
-<textarea name="address" id="address" cols="30" rows="10"></textarea> -->
+<div nz-row nzJustify="center" class="add-account-btn"><span nz-icon nzType="plus" nzTheme="outline"></span> Thêm số tài khoản</div>
 
-<button nz-button (click)="addProject()">Create project</button>
+<div nz-row [nzGutter]="32">
+    <div nz-col [nzSpan]="6">
+        <input [(ngModel)]="investor" type="text" nz-input>
+        <p>Chủ đầu tư</p>
+    </div>
+    <div nz-col [nzSpan]="6">
+        <input [(ngModel)]="investorPhoneNumber" type="text" nz-input>
+        <p>Số điện thoại</p>
+    </div>
+    <div nz-col [nzSpan]="6">
+        <nz-date-picker [(ngModel)]="startDate"></nz-date-picker>
+        <p>Ngày khởi công</p>
+    </div>
+    <div nz-col [nzSpan]="6">
+        <nz-date-picker [(ngModel)]="endDate"></nz-date-picker>
+        <p>Ngày khởi công</p>
+    </div>
+</div>
+<button nz-button class="add-project-btn background-orange" (click)="addProject()">Create project</button>
 

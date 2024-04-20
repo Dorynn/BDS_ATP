@@ -7,21 +7,33 @@
         <div class="project-image" nz-col [nzSpan]="12"></div>
     </div>
 </div>
+<div class="menu">
+    <ul nz-flex>
+        <li class="active">All</li>
+        @for (item of areaList; track $index) {
+            <li>{{item.name}}</li>
+        }
+    </ul>
+</div>
 
 @for(area of areaList; track area.id){
     <div class="area-group">
-        <h2>{{area.name}}</h2>
-        <swiper-container loop="true" slides-per-view="4" mousewheel-force-to-axis="true" space-between="15" navigation="true">
+        <h1>{{area.name}}</h1>
+        <swiper-container loop="true" slides-per-view="2" mousewheel-force-to-axis="true" space-between="15" navigation="true" pagination="true">
             @for(land of area.lands; track land){    
                 <swiper-slide class="swiper-slide">
-                    <div class="wapper">
-                        <img class="image" src="../../../../assets/img/flat2.jpg" alt="">
-                        <span class="status">{{land.status}}</span>
-                        <span class="">{{land.name}}</span>
-                        <span class="brief">{{land.description}} | {{land.acreage}} m2 | TN-TB</span>
-                        <span class="price">{{land.price}}tr/m2</span>
+                    <div class="wapper" nz-row>
+                        <div nz-col [nzSpan]="16" class="wrapper__info">
+                            <span>{{land.name}}</span>
+                            <span class="status">{{land.status==0?'Đang mở bán':'Sắp mở bán'}}</span>
+                            <p class="brief">{{land.description}} | {{land.acreage}} m2</p>
+                            <p class="price">Giá niêm yết: {{land.price}} tỷ</p>
+                            <button nz-button class="background-brown">Đặt cọc ngay</button>
+                        </div>
+                        <div nz-col [nzSpan]="8">
+                            <img class="image" src="../../../../assets/img/flat2.jpg" alt="">
+                        </div>
                     </div>
-                    <span class="deposit_price">Giá đặt cọc: {{land.deposit}} triệu đồng</span>
                 </swiper-slide>
             }        
         </swiper-container>

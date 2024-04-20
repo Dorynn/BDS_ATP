@@ -1,0 +1,82 @@
+<div class="thumbnail" nz-flex nzAlign="center" nzJustify="center">
+    <div nz-row class="thumbnail__box">
+        <div nz-col [nzSpan]="12" class="thumbnail__text-box">
+            <h3>{{projectDetail.name}}</h3>
+            <p>{{projectDetail.description}}</p>
+        </div>
+        <div class="project-image" nz-col [nzSpan]="12"></div>
+    </div>
+</div>
+
+<div class="menu">
+    <ul nz-flex>
+        <li class="active">All</li>
+        @for (item of areaList; track $index) {
+            <li>{{item.name}}</li>
+        }
+    </ul>
+</div>
+
+<div class="content">
+    <div class="content-wrapper">
+        <div class="filter" nz-flex nzJustify="end">
+            <nz-select></nz-select>
+            <nz-select></nz-select>
+            <nz-select></nz-select>
+            <nz-select></nz-select>
+            <button nz-button class="background-brown">Lọc</button>
+            <button nz-button class="background-brown">Xóa</button>
+        </div>
+
+        <div class="land-list">
+            <h1>TC1 - The Canopy Vista</h1>
+            <div nz-row [nzGutter]="[32, 32]">
+                <div nz-col [nzSpan]="12">
+                    <div nz-row class="wrapper">
+                        <div nz-col [nzSpan]="16" class="wrapper__info">
+                            <span>TC1103</span>
+                            <span class="status">{{'Đang mở bán'}}</span>
+                            <p class="brief">Căn hộ 3PN | 86.6 m2</p>
+                            <p class="price">Giá niêm yết: 5.8 tỷ</p>
+                            <button nz-button class="background-brown">Đặt cọc ngay</button>
+                        </div>
+                        <div nz-col [nzSpan]="8" (click)="openLandDetailModal()">
+                            <img class="image" src="../../../../assets/img/flat2.jpg" alt="" height="100%" width="100%">
+                        </div>
+                    </div>
+                </div>
+                <div nz-col [nzSpan]="12">
+                    <div nz-row class="wrapper">
+                        <div nz-col [nzSpan]="16" class="wrapper__info">
+                            <span>TC1103</span>
+                            <span class="status">{{'Đang mở bán'}}</span>
+                            <p class="brief">Căn hộ 3PN | 86.6 m2</p>
+                            <p class="price">Giá niêm yết: 5.8 tỷ</p>
+                            <button nz-button class="background-brown">Đặt cọc ngay</button>
+                        </div>
+                        <div nz-col [nzSpan]="8">
+                            <img class="image" src="../../../../assets/img/flat2.jpg" alt="" height="100%" width="100%">
+                        </div>
+                    </div>
+                </div>
+                <div nz-col [nzSpan]="12">
+                    <div nz-row class="wrapper">
+                        <div nz-col [nzSpan]="16" class="wrapper__info">
+                            <span>TC1103</span>
+                            <span class="status">{{'Đang mở bán'}}</span>
+                            <p class="brief">Căn hộ 3PN | 86.6 m2</p>
+                            <p class="price">Giá niêm yết: 5.8 tỷ</p>
+                            <button nz-button class="background-brown" (click)="showConfirm()">Đặt cọc ngay</button>
+                        </div>
+                        <div nz-col [nzSpan]="8">
+                            <img class="image" src="../../../../assets/img/flat2.jpg" alt="" height="100%" width="100%">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<app-land-info-modal></app-land-info-modal>
+<app-payment-modal></app-payment-modal>
