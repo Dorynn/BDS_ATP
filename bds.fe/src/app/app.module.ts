@@ -54,6 +54,9 @@ import { LandInfoBoxComponent } from './components/land-info-box/land-info-box.c
 import { LandInfoModalComponent } from './components/land-info-modal/land-info-modal.component';
 import { NzQRCodeModule } from 'ng-zorro-antd/qr-code';
 import { PaymentModalComponent } from './components/payment-modal/payment-modal.component';
+import { Verify } from 'crypto';
+import { VerifyPhoneNumberComponent } from './components/verify-phone-number/verify-phone-number.component';
+
 
 registerLocaleData(en);
 
@@ -83,7 +86,8 @@ registerLocaleData(en);
     AreaDetailComponent,
     LandInfoBoxComponent,
     LandInfoModalComponent,
-    PaymentModalComponent
+    PaymentModalComponent,
+    VerifyPhoneNumberComponent
   ],
   imports: [
     BrowserModule,
@@ -108,7 +112,7 @@ registerLocaleData(en);
     NzDatePickerModule,
     NzBadgeModule,
     NzTableModule,
-    NzQRCodeModule
+    NzQRCodeModule,
   ],
   providers: [
     { provide: NZ_I18N, useValue: en_US },

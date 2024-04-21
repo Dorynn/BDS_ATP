@@ -3,18 +3,18 @@
         <img src="../../../assets/img/flat2.jpg" alt="flat-image" width="100%">
     </div>
     <div *nzModalContent>
-        <h1>TC11103</h1>
-        <p>Giá niêm yết: 5.7 tỷ đồng</p>
-        <p>Giá đặt cọc: 50 triệu đồng</p>
-        <div class="status">Đang mở bán</div>
-        <h3>Mô tả</h3>
-        <div><strong>Dự án: </strong>Vinhome Smart City</div>
-        <div><strong>Dự án: </strong>Vinhome Smart City</div>
-        <div><strong>Dự án: </strong>Vinhome Smart City</div>
-        <div><strong>Dự án: </strong>Vinhome Smart City</div>
-        <div><strong>Dự án: </strong>Vinhome Smart City</div>
-    </div>
-    <div *nzModalFooter>
-        <button nz-button (click)="showConfirm()">Đặt cọc</button>
-    </div>
+        <h1>{{item.name}}</h1>
+        <p>Giá niêm yết: {{item.price}} tỷ đồng</p>
+        <p>Giá đặt cọc: {{item.deposit}} triệu đồng</p>
+        <div class="status">{{item.status==0?'Sắp mở bán':item.status==1?'Đang mở bán':'Đã hết'}}</div>
+            <h3>Mô tả</h3>
+            <div><strong>Dự án: </strong>{{item.projectName}}</div>
+            <div><strong>Phân khu: </strong>{{item.areaName}}</div>
+            <div><strong>Chủ đầu tư: </strong>{{item.investor}}</div>
+            <div><strong>Loại hình căn hộ: </strong>{{item.description}}</div>
+            <div><strong>Diện tích: </strong>{{item.acreage}}/m2</div>
+        </div>
+        <div *nzModalFooter>
+            <button nz-button (click)="showConfirm()">Đặt cọc</button>
+        </div>
 </nz-modal>

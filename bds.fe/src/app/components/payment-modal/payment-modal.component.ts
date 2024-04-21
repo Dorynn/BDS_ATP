@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { DataService } from '../../services/data.service';
 
 @Component({
@@ -8,6 +8,7 @@ import { DataService } from '../../services/data.service';
 })
 export class PaymentModalComponent implements OnInit {
   isVisible: boolean = false;
+  @Input() item:any = [];
   constructor(
     private dataService: DataService
   ){}
@@ -18,6 +19,7 @@ export class PaymentModalComponent implements OnInit {
 
   onCancel(): void {
     this.isVisible = false;
+    this.dataService.changeStatusPaymentModal(false);
   }
 
   handleTransaction (): void {

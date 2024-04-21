@@ -1,4 +1,4 @@
-<nz-modal [(nzVisible)]="isVisible">
+<nz-modal [(nzVisible)]="isVisible" (nzOnCancel)="onCancel()">
     <ng-container *nzModalTitle>
         <div class="modal__header">
             <p>Thanh toán chuyển khoản</p>
@@ -14,35 +14,35 @@
                     <span class="vietqr">VIETQR</span>
                     <span class="vpbank">VPBank</span>
                 </div>
-                <img src="https://qr.sepay.vn/img?acc=9704229205543849416&bank=MB&amount=100000&des=testQR" alt="qr-image">
+                <img [src]="item.qr" alt="qr-image">
                 <p class="napas">napas 247</p>
             </div>
 
             <div class="payment-info">
                 <div nz-flex nzJustify="space-between">
                     <span>Ngân hàng hưởng thụ</span>
-                    <span>VPBank</span>
+                    <span>{{item.bankName}}</span>
                 </div>
                 <div nz-flex nzJustify="space-between">
                     <span>Số tài khoản</span>
-                    <span>012245944</span>
+                    <span>{{item.bankNumber}}</span>
                 </div>
                 <div nz-flex nzJustify="space-between">
                     <span>Số tiền</span>
-                    <span>5000000</span>
+                    <span>{{item.deposit}}</span>
                 </div>
                 <div nz-flex nzJustify="space-between">
                     <span>
                         Người nhận
                     </span>
                     <span>
-                        Công ty CPBDSTT An Thịnh Phát
+                        {{item.hostBank}}
                     </span>
                 </div>
                 <div nz-flex nzJustify="space-between">
                     <span>Nội dung</span>
                     <span>
-                        Số điện thoại + tên bds
+                        Số điện thoại + {{item.name}}
                     </span>
                 </div>
                 <div>Vui lòng chuyển <strong>ĐÚNG: Số tài khoản - số tiền - nội dung giao dịch để giao dịch</strong> được ghi nhận</div>

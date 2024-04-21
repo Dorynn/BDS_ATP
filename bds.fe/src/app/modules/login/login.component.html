@@ -29,15 +29,22 @@
             @if(isInvalid){
                 <p class="error-message">Số điện thoại hoặc mật khẩu không đúng. Vui lòng nhập lại</p>
             }
+        </form>
+    </ng-template>
+    
+    <ng-template #modalFooter>
+        <div class="modal__footer">
             <div nz-row nzJustify="space-between">
                 <label for="rememberPassword" nz-col><input id="rememberPassword" type="checkbox"> Ghi nhớ mật khẩu</label>
                 <span class="link-text" nz-col>Quên mật khẩu?</span>
             </div>
-        </form>
-    </ng-template>
-
-    <ng-template #modalFooter>
-        <button nz-button nzBlock class="login-btn" (click)="handleLogin()">Đăng nhập</button>
-        <div class="login-modal__register">Bạn không có tài khoản? <span class="link-text" (click)="showRegisterModal()">Đăng ký</span></div>
+            <button nz-button nzBlock class="login-btn" (click)="handleLogin()">Đăng nhập</button>
+            <nz-divider nzText="HOẶC"></nz-divider>
+            <div class="other-login-method" nz-flex nzJustify="space-between">
+                <button nz-button><i class="fa-brands fa-google" style="color: #de3b40; margin-right: 10px"></i> Đăng nhập với Google</button>
+                <button nz-button><i class="fa-brands fa-facebook" style="color: #0866ff; margin-right: 10px"></i>Đăng nhập với Facebook</button>
+            </div>
+            <div class="login-modal__register">Bạn không có tài khoản? <span class="link-text" (click)="showRegisterModal()">Đăng ký</span></div>
+        </div>
     </ng-template>
 </nz-modal>

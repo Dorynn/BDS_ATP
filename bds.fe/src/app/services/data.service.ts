@@ -10,11 +10,13 @@ export class DataService {
   private statusRegisterModalStep2 = new BehaviorSubject(false);
   private statusLandDetailModal = new BehaviorSubject(false);
   private statusPaymentModal = new BehaviorSubject(false);
+  private statusVerifyPhoneNumber = new BehaviorSubject(false);
   isVisibleLoginModal = this.statusLoginModal.asObservable();
   isVisibleRegisterModal = this.statusRegisterModal.asObservable();
   isVisibleRegisterModalStep2 = this.statusRegisterModalStep2.asObservable()
   isVisibleLandDetailModal = this.statusLandDetailModal.asObservable();
   isVisiblePaymentModal = this.statusPaymentModal.asObservable()
+  isVisibleVerifyPhoneNumber = this.statusVerifyPhoneNumber.asObservable();
 
   constructor() { }
 
@@ -36,6 +38,10 @@ export class DataService {
 
   changeStatusPaymentModal (status: boolean) {
     this.statusPaymentModal.next(status);
+  }
+
+  changeStatusVerifyPhoneNumberModal (status: boolean) {
+    this.statusVerifyPhoneNumber.next(status)
   }
 
 }

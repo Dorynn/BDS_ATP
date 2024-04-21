@@ -25,4 +25,7 @@ export class ApiService {
     return this.http.get(`${baseUrl}/projects/${id}`)
   }
   
+  getAreaById(id: string | null):Observable<any> {
+    return this.http.get(`${baseUrl}/areas/${id}`)
+  }
 }

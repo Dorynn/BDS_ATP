@@ -58,3 +58,7 @@ button.background-brown:hover {
     color: #fff;
     border-color: #df8f0d;
 }
+
+swiper-container .swiper-button-next{
+    color: #000;
+}

@@ -46,7 +46,8 @@ const routes: Routes = [
           {
             path: 'project-detail/:id/area-detail/:area-id',
             component: AreaDetailComponent
-          }
+          },
+          
         ]
       },
       {

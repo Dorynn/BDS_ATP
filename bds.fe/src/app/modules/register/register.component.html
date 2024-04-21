@@ -3,105 +3,14 @@
     <ng-template #modalTitle><h2 class="title">Đăng ký</h2></ng-template>
 
     <ng-template #modalContent>
-        <div nz-row [nzGutter]="16" nzJustify="space-between">
-            <div class="input-group" nz-col [nzSpan]="18" nz-flex>
-                <span nz-col [nzSpan]="2"><i class="fa-solid fa-phone"></i></span>
-                <input [(ngModel)]="phoneNumber" type="text" nz-input nz-col [nzSpan]="16">
-            </div>
-            <button nz-button nz-col [nzSpan]="6">Lấy mã xác thực</button>
-        </div>
-        <div nz-row [nzGutter]="16" nzJustify="space-between">
-            <div class="input-group" nz-col [nzSpan]="18" nz-flex
-            >
-                <span nz-col [nzSpan]="2"><i class="fa-regular fa-circle-check"></i></span>
-                <input type="text" nz-input nz-col [nzSpan]="16">
-            </div>
-            <button nz-button nz-col [nzSpan]="6">Xác thực</button>
-        </div>
-        <div nz-row [nzGutter]="16" class="input-group">
-            <span nz-col [nzSpan]="2" class="prefix">
-                <i class="fa-solid fa-lock"></i>
-            </span>
-            <input [(ngModel)]="password" nz-col [nzSpan]="20" [type]="passwordType" nz-input placeholder="Nhập mật khẩu của bạn" (keyup)="handleOnchange()" name="password">
-            <span nz-col [nzSpan]="2" class="suffix" (click)="showPassword()">
-                @if(isShowPassword === true) {
-                    <i class="fa-regular fa-eye"></i>
-                }@else {
-                    <i class="fa-regular fa-eye-slash"></i>
-                }
-            </span>
-        </div>
-        <div nz-row [nzGutter]="16" class="input-group">
-            <span nz-col [nzSpan]="2" class="prefix">
-                <i class="fa-solid fa-lock"></i>
-            </span>
-            <input [(ngModel)]="rePassword" nz-col [nzSpan]="20" [type]="rePasswordType" nz-input placeholder="Nhập mật khẩu của bạn" (keyup)="handleOnchange()" name="repassword">
-            <span nz-col [nzSpan]="2" class="suffix" (click)="showRePassword()">
-                @if(isShowRePassword === true) {
-                    <i class="fa-regular fa-eye"></i>
-                }@else {
-                    <i class="fa-regular fa-eye-slash"></i>
-                }
-            </span>
+        <div class="modal__content">
+            <button nz-button nzBlock (click)="loginWithGoogle()"><i class="fa-brands fa-google" style="color: #de3b40; margin-right: 10px"></i> Đăng nhập với Google</button>
+            <button nz-button nzBlock><i class="fa-brands fa-facebook" style="color: #0866ff; margin-right: 10px"></i>Đăng nhập với Facebook</button>
+            <div>Bằng cách đăng ký, bạn đồng ý với <strong>điều khoản sử dụng</strong> và <strong>điều khoản bảo mật</strong></div>
         </div>
     </ng-template>
 
     <ng-template #modalFooter>
-        <button nz-button nzBlock class="register-btn" (click)="goToNextStep()">Bước tiếp theo <span nz-icon nzType="right" nzTheme="outline"></span></button>
-        <div class="register-modal__register">Bạn đã có tài khoản? <span class="link-text" (click)="showLoginModal()">Đăng nhập</span></div>
-    </ng-template>
-</nz-modal>
-
-
-
-<nz-modal id="register-modal-2" [(nzVisible)]="isVisible2" [nzTitle]="modalTitle2" [nzContent]="modalContent2" [nzFooter]="modalFooter2"
-    (nzOnCancel)="handleCancel()">
-    <ng-template #modalTitle2><h2 class="title">Đăng ký</h2></ng-template>
-
-    <ng-template #modalContent2>
-        <div class="input-group">
-            <label for="name">Họ và tên</label>
-            <input type="text" nz-input placeholder="Nhập họ và tên của bạn" class="register-modal-2__input">
-        </div>
-        <div nz-row nzJustify="space-between">
-            <div class="input-group" nz-col [nzSpan]="11">
-                <label for="province">Tỉnh</label>
-                <nz-select></nz-select>
-            </div>
-            <div class="input-group" nz-col [nzSpan]="11">
-                <label for="District">Quận/Huyện</label>
-                <nz-select></nz-select>
-            </div>
-        </div>
-        <div class="input-group">
-            <label for="address">Địa chỉ</label>
-            <input type="text" nz-input placeholder="Nhập địa chỉ của bạn" class="register-modal-2__input"
-            >
-        </div>
-        <div nz-row nzJustify="space-between">
-            <div nz-col [nzSpan]="11" class="input-group">
-                <label for="dob">Ngày sinh</label>
-                <nz-date-picker nzPlaceHolder="dd/mm/yyy"></nz-date-picker>
-            </div>
-            <div nz-col [nzSpan]="11" class="input-group">
-                <label for="dob">Giới tính</label>
-                <nz-select>
-                    <nz-option [nzValue]="1" nzLabel="Nam"></nz-option>
-                    <nz-option [nzValue]="2" nzLabel="Nữ"></nz-option>
-                    <nz-option [nzValue]="3" nzLabel="Khác"></nz-option>
-                </nz-select>
-            </div>
-        </div>
-
-    </ng-template>
-
-    <ng-template #modalFooter2>
-        <div nz-row [nzJustify]="'space-between'">
-            <button nz-button nz-col [nzSpan]="11" class="
-            "><span nz-icon nzType="left" nzTheme="outline"></span>Quay lại</button>
-            <button nz-button nz-col [nzSpan]="11" class="
-            ">Đăng ký</button>
-
-        </div>
+        <div class="modal__footer">Bạn đã có tài khoản? <span class="link-text" type="button" (click)="showLoginModal()">Đăng nhập</span></div>
     </ng-template>
 </nz-modal>

@@ -1,48 +1,35 @@
 .title {
     text-align: center;
     color: #EFB034;
+    padding: 20px;
 }
 
-[nz-button]{
-    color: #fff;
-    background-color: #EFB034;
-    border: none;
+.modal__content button{
+   margin: 15px 0;
+   padding: 8px;
+   height: 100%;
+   border: 1px solid #000;
 }
 
-[nz-input]{
-    border: none;
-    border-radius: 0;
+.modal__content button:hover{
+    background-color: #fbf9f9;
+    color: black;
 }
 
-.input-group {
-    border-bottom: 1px solid #000;
-    margin-bottom: 15px;
+.modal__content button:focus{
+    background-color: #e6e0e0;
+    color: black;
 }
 
-.input-group nz-select, .input-group nz-date-picker {
-    width: 100%;
-    border: none;
+.modal__footer {
+    padding: 20px;
+    text-align: left;
 }
-
 
 .link-text {
     color: #EFB034;;
     text-decoration: underline;
     cursor: pointer;
-}
-
-.register-modal__register {
-    text-align: center;
-    margin: 15px ;
-    font-weight: 500;
-}
-
-.error-message {
-    color: #DE3B40;
-}
-
-.error {
-    border-bottom: 1px solid #DE3B40 !important;
 }
 
 

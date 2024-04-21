@@ -9,33 +9,36 @@
 </div>
 <div class="menu">
     <ul nz-flex>
-        <li class="active">All</li>
+        <li [routerLink]="['/user/project-detail',projectId]" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">All</li>
         @for (item of areaList; track $index) {
-            <li>{{item.name}}</li>
+        <li [routerLink]="['/user/project-detail',projectId,'area-detail', item.id]" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">{{item.name}}</li>
         }
     </ul>
 </div>
 
 @for(area of areaList; track area.id){
-    <div class="area-group">
-        <h1>{{area.name}}</h1>
-        <swiper-container loop="true" slides-per-view="2" mousewheel-force-to-axis="true" space-between="15" navigation="true" pagination="true">
-            @for(land of area.lands; track land){    
-                <swiper-slide class="swiper-slide">
-                    <div class="wapper" nz-row>
-                        <div nz-col [nzSpan]="16" class="wrapper__info">
-                            <span>{{land.name}}</span>
-                            <span class="status">{{land.status==0?'Đang mở bán':'Sắp mở bán'}}</span>
-                            <p class="brief">{{land.description}} | {{land.acreage}} m2</p>
-                            <p class="price">Giá niêm yết: {{land.price}} tỷ</p>
-                            <button nz-button class="background-brown">Đặt cọc ngay</button>
-                        </div>
-                        <div nz-col [nzSpan]="8">
-                            <img class="image" src="../../../../assets/img/flat2.jpg" alt="">
-                        </div>
-                    </div>
-                </swiper-slide>
-            }        
-        </swiper-container>
-    </div>
+<div class="area-group">
+    <h1>{{area.name}}</h1>
+    <swiper-container loop="true" slides-per-view="2" mousewheel-force-to-axis="true" space-between="15"
+        navigation="true" pagination="true" style="--swiper-navigation-color: #fff; --swiper-pagination-color: #6D31ED">
+        @for(land of area.lands; track land){
+        <swiper-slide class="swiper-slide">
+            <div class="wapper" nz-row>
+                <div nz-col [nzSpan]="16" class="wrapper__info">
+                    <span>{{land.name}}</span>
+                    <span class="status">{{land.status==0?'Đang mở bán':'Sắp mở bán'}}</span>
+                    <p class="brief">{{land.description}} | {{land.acreage}} m2</p>
+                    <p class="price">Giá niêm yết: {{land.price}} tỷ</p>
+                    <button nz-button class="background-brown" (click)="showConfirm(land, area.name)">Đặt cọc ngay</button>
+                </div>
+                <div nz-col [nzSpan]="8" (click)="openLandDetailModal(land, area.name)">
+                    <img class="image" src="../../../../assets/img/flat2.jpg" alt="">
+                </div>
+            </div>
+        </swiper-slide>
+        }
+    </swiper-container>
+</div>
 }
+<app-payment-modal [item]="item"></app-payment-modal>
+<app-land-info-modal [item]="item"></app-land-info-modal>

@@ -20,37 +20,44 @@
 }
 
 .project-image {
-    background: no-repeat center/100% url("../../../../assets/img/img2.jpg");
+    background: no-repeat center/100% url("../../../../assets//img/img2.jpg");
+}
+
+.menu {
+    margin-bottom: 50px;
 }
 
 .area-group {
     font-family: 'Times New Roman', Times, serif;
     width: 90%;
     background-color: antiquewhite;
-    padding: 20px 80px;
+    padding: 20px;
     margin: auto;
     margin-bottom: 30px;
     position: relative;
 }
 
 .swiper-button-next{
-    position: absolute;
-    right: 0;
+    color: #000;
+    background-color: #000;
 }
+
 
 .swiper-button-prev {
-    position: absolute;
-    left: 0;
+
 }
 
-.swiper-slide {
-    background-color: #fff;
+swiper-slide.swiper-slide {
+    height: 230px;
+    background-color: antiquewhite;
     border-radius: 4px;
 }
 
 .wapper {
     position: relative;
-
+    background-color: #fff;
+    width: 85%;
+    margin: auto;
 }
 
 .wrapper__info {
