@@ -54,10 +54,11 @@ import { LandInfoBoxComponent } from './components/land-info-box/land-info-box.c
 import { LandInfoModalComponent } from './components/land-info-modal/land-info-modal.component';
 import { NzQRCodeModule } from 'ng-zorro-antd/qr-code';
 import { PaymentModalComponent } from './components/payment-modal/payment-modal.component';
-import { Verify } from 'crypto';
 import { VerifyPhoneNumberComponent } from './components/verify-phone-number/verify-phone-number.component';
-
-
+import { CountdownModule } from 'ngx-countdown';
+import { NzDropDownModule } from 'ng-zorro-antd/dropdown';
+import { LandManagementComponent } from './pages/admin/land-management/land-management.component';
+import { NzUploadModule } from 'ng-zorro-antd/upload';
 registerLocaleData(en);
 
 @NgModule({
@@ -87,7 +88,9 @@ registerLocaleData(en);
     LandInfoBoxComponent,
     LandInfoModalComponent,
     PaymentModalComponent,
-    VerifyPhoneNumberComponent
+    VerifyPhoneNumberComponent,
+    LandManagementComponent,
+    AddLandComponent
   ],
   imports: [
     BrowserModule,
@@ -113,6 +116,9 @@ registerLocaleData(en);
     NzBadgeModule,
     NzTableModule,
     NzQRCodeModule,
+    CountdownModule,
+    NzDropDownModule,
+    NzUploadModule
   ],
   providers: [
     { provide: NZ_I18N, useValue: en_US },

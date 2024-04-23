@@ -65,3 +65,9 @@ nz-header {
     z-index: 1;
 }
 
+.linkActive {
+    background-color: transparent !important;
+    border-left: 5px solid #000;
+    color: #fff;
+}
+

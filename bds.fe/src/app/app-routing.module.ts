@@ -70,11 +70,11 @@ const routes: Routes = [
             component: AddAreaComponent
           },
           {
-            path: 'edit-area',
+            path: 'edit-area/:id',
             component: EditAreaComponent
           },
           {
-            path: 'edit-project',
+            path: 'edit-project/:id',
             component: EditProjectComponent
           },
           {

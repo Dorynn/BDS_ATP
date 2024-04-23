@@ -8,26 +8,26 @@ import { ApiService } from '../../../services/api.service';
   styleUrl: './area-management.component.css'
 })
 export class AreaManagementComponent implements OnInit {
-  projectList: any = [];
   total: number = 0;
   pageSize: number = 10;
   currentPage: number = 0;
+  areaList: any = []
   constructor(
     private apiService: ApiService,
     private router: Router
   ){}
   
   ngOnInit():void {
-    this.getProjectList();
+    this.getAreaList({})
   }
 
-  getProjectList() {
-    this.apiService.getProjectList({pageIndex:0, pageSize: 10}).subscribe({
+  getAreaList(request:any){
+    this.apiService.getAreaList(request).subscribe({
       next: (res: any) => {
+        this.areaList = res.data;
         this.total = res.totalRecords;
         this.currentPage = res.currentPage;
         this.pageSize = res.currentSize;
-        this.projectList = res.data;
       }
     })
   }
@@ -36,7 +36,11 @@ export class AreaManagementComponent implements OnInit {
     this.router.navigateByUrl('/admin/add-area');
   }
 
-  handleChangePage(e: any){
+  goToEditArea(id: string){
+    this.router.navigateByUrl(`/admin/edit-area/${id}`)
+  }
 
+  handleChangePage(e: any){
+    this.getAreaList({pageIndex: e-1, pageSize: this.pageSize})
   }
 }

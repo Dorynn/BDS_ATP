@@ -14,7 +14,7 @@
         @for (item of areaList; track $index) {
         <li [routerLink]="['/user/project-detail',projectId,'area-detail', item.id]" routerLinkActive="active"
             [routerLinkActiveOptions]="{exact:
-            true}">
+            true}" (click)="handleChangeArea(item)">
             {{item.name}}</li>
         }
     </ul>

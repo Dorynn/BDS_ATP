@@ -6,10 +6,18 @@
     </div>
     <span class="trigger" nz-icon [nzType]="isCollapsed ? 'menu-unfold' : 'menu-fold'"
       (click)="isCollapsed = !isCollapsed" nz-col [nzSpan]="2"></span>
-    <div nz-col [nzOffset]="18">
+    <div nz-col [nzOffset]="18" [nzDropdownMenu]="menu" nz-dropdown nzTrigger="click">
       <i class="fa-solid fa-user" style="color: #f57222; margin-right: 10px;"></i>
       <span style="color: #f57222; font-weight: 500; text-transform: uppercase;">Admin</span>
     </div>
+
+    <nz-dropdown-menu #menu="nzDropdownMenu">
+      <ul nz-menu>
+        <li nz-menu-item><span nz-icon nzType="user" nzTheme="outline"></span> Trang cá nhân</li>
+        <li nz-menu-item><span nz-icon nzType="bar-chart" nzTheme="outline"></span> Lịch sử giao dịch</li>
+        <li nz-menu-item><span nz-icon nzType="logout" nzTheme="outline"></span> Đăng xuất</li>
+      </ul>
+    </nz-dropdown-menu>
   </nz-header>
   <nz-layout>
     <nz-sider nzCollapsible [(nzCollapsed)]="isCollapsed" [nzTrigger]="null" class="background-orange">
@@ -18,21 +26,21 @@
           <span nz-icon nzType="user"></span>
           <span>Quản lý người dùng</span>
         </li>
-        <li nz-menu-item>
+        <li nz-menu-item routerLink="/admin/project-management" routerLinkActive="linkActive">
           <span nz-icon nzType="file-text"></span>
           <span>Quản lý dự án</span>
         </li>
-        <li nz-menu-item>
+        <li nz-menu-item routerLink="/admin/area-management" routerLinkActive="linkActive">
           <span nz-icon nzType="pie-chart"></span>
           <span>Quản lý khu vực</span>
         </li>
-        <li nz-menu-item>
+        <li nz-menu-item routerLink="/admin/land-management" routerLinkActive="linkActive">
           <span nz-icon nzType="home"></span>
           <span>Quản lý lô đất</span>
         </li>
-        <li nz-menu-item>
+        <li nz-menu-item routerLink="/admin/transaction-management" routerLinkActive="linkActive">
           <span nz-icon nzType="qrcode"></span>
-          <span>Quản lý QR</span>
+          <span>Quản lý giao dịch</span>
         </li>
       </ul>
     </nz-sider>

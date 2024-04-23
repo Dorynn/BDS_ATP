@@ -6,6 +6,7 @@ import 'swiper/scss/navigation';
 import 'swiper/scss/pagination';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { DataService } from '../../../services/data.service';
+import { CountdownEvent } from 'ngx-countdown/interfaces';
 
 @Component({
   selector: 'app-project-detail',
@@ -16,7 +17,7 @@ export class ProjectDetailComponent implements OnInit {
   projectId: string | null = this.route.snapshot.paramMap.get('id');
   projectDetail: any = {}
   areaList : any = [];
-  item: any = []
+  item: any = [];
   
   constructor(
     private apiService: ApiService,
@@ -92,5 +93,4 @@ export class ProjectDetailComponent implements OnInit {
     };
     this.dataService.changeStatusLandDetailModal(true);
   }
-  
 }

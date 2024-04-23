@@ -95,4 +95,9 @@ export class AreaDetailComponent implements OnInit, OnChanges {
   openPaymentModal(): void {
     this.dataService.changeStatusPaymentModal(true);
   }
+
+  handleChangeArea(item: any){
+    this.areaId = item.id;
+    this.getAreaDetail();
+  }
 }
