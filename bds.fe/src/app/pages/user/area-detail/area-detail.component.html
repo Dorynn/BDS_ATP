@@ -39,10 +39,10 @@
                     <div nz-row class="wrapper">
                         <div nz-col [nzSpan]="16" class="wrapper__info">
                             <span>{{item.name}}</span>
-                            <span class="status">{{item==0?'Sắp mở bán': item==1?'Đang mở bán':'Đã bán'}}</span>
+                            <span class="status">{{item.status==0?'Sắp mở bán': item.status==1?'Đang mở bán': item.status ==2?'Đang đặt cọc':'Đã đặt cọc'}}</span>
                             <p class="brief">{{item.description}} | {{item.acreage}} m2</p>
                             <p class="price">Giá niêm yết: {{item.price}} tỷ</p>
-                            <button nz-button class="background-brown" (click)="showConfirm(item)">Đặt cọc ngay</button>
+                            <button nz-button class="background-brown" (click)="showConfirm(item)" [disabled]="item.status==2 || item.status == 3">Đặt cọc ngay</button>
                         </div>
                         <div nz-col [nzSpan]="8" (click)="openLandDetailModal(item)">
                             <img class="image" src="../../../../assets/img/flat2.jpg" alt="" height="100%" width="100%">
@@ -56,4 +56,4 @@
 </div>
 
 <app-land-info-modal [item]="item"></app-land-info-modal>
-<app-payment-modal [item]="item"></app-payment-modal>
+<app-payment-modal [item]="item" (handleReload)="handleReload($event)"></app-payment-modal>

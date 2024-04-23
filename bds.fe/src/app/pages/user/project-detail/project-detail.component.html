@@ -29,7 +29,7 @@
                     <span class="status">{{land.status==0?'Đang mở bán':'Sắp mở bán'}}</span>
                     <p class="brief">{{land.description}} | {{land.acreage}} m2</p>
                     <p class="price">Giá niêm yết: {{land.price}} tỷ</p>
-                    <button nz-button class="background-brown" (click)="showConfirm(land, area.name)">Đặt cọc ngay</button>
+                    <button nz-button class="background-brown" (click)="showConfirm(land, area)">Đặt cọc ngay</button>
                 </div>
                 <div nz-col [nzSpan]="8" (click)="openLandDetailModal(land, area.name)">
                     <img class="image" src="../../../../assets/img/flat2.jpg" alt="">

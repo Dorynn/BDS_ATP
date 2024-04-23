@@ -3,39 +3,56 @@ import { ActivatedRoute, NavigationEnd, NavigationStart, Router } from '@angular
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { ApiService } from '../../../services/api.service';
 import { DataService } from '../../../services/data.service';
+import { SocketService } from '../../../services/socket.service';
 
 @Component({
   selector: 'app-area-detail',
   templateUrl: './area-detail.component.html',
   styleUrl: './area-detail.component.css'
 })
-export class AreaDetailComponent implements OnInit, OnChanges {
+export class AreaDetailComponent implements OnInit {
   projectId: string | null = this.route.snapshot.paramMap.get('id');
   areaId: string | null = this.route.snapshot.paramMap.get('area-id')
   projectDetail: any = [];
   areaList: any = [];
   areaDetail: any = [];
   item: any = [];
+  stompClient: any;
 
   constructor(
     private apiService: ApiService,
     private route: ActivatedRoute,
     private dataService: DataService,
     private modalService: NzModalService,
-    private router: Router
+    private router: Router,
+    private socketService: SocketService
   ) {
+    // this.connectSocket()
   }
 
-  ngOnChanges(): void {
-    // this.dataService.changeStatusPaymentModal(false);
-    // this.dataService.changeStatusLandDetailModal(false);    
+  connectSocket(){
+    this.stompClient = this.socketService.connect();
+    this.stompClient.connect({}, (frame: any) => {
+      this.stompClient.subscribe('/topic/block_land', (message: any) => {
+        console.log(message);
+        this.getAreaDetail();
+      })
+      this.stompClient.subscribe('/topic/unlock_land', (message: any) => {
+        console.log(message);
+
+        this.getAreaDetail();
+      })
+    })
   }
-  
+
   ngOnInit(): void {
-    console.log('on init');
-    
+    this.connectSocket()
     this.getAreaDetail()
     this.getProjectDetail();
+    let isPaymentOpen = localStorage.getItem("isPaymentOpen");
+    if(isPaymentOpen==='true'){
+      this.dataService.changeStatusPaymentModal(true);
+    }
   }
 
   getProjectDetail(): void {
@@ -61,7 +78,10 @@ export class AreaDetailComponent implements OnInit, OnChanges {
     this.item = {
       ...item,
       projectName: this.projectDetail.name,
+      projectId: this.projectDetail.id,
       areaName: this.areaDetail.name,
+      areaId: this.areaDetail.id,
+      expiryDate: this.areaDetail.expiryDate,
       investor: this.projectDetail.investor,
       price: item.price,
       deposit: item.deposit,
@@ -70,20 +90,43 @@ export class AreaDetailComponent implements OnInit, OnChanges {
       hostBank: this.projectDetail.hostBank,
       bankName: this.projectDetail.bankName,
       bankNumber: this.projectDetail.bankNumber,
-      qr: `https://qr.sepay.vn/img?acc=${this.projectDetail.bankNumber}&bank=${this.projectDetail.bankName}&amount=${item.deposit*100}&des=013+${item.name}`
-    
+      qr: `https://qr.sepay.vn/img?acc=${this.projectDetail.bankNumber}&bank=${this.projectDetail.bankName}&amount=${item.deposit * 100}&des=013+${item.name}`
+
     };
     this.dataService.changeStatusLandDetailModal(true);
   }
 
   showConfirm(item: any): void {
+    this.item = {
+      ...item,
+      projectName: this.projectDetail.name,
+      projectId: this.projectDetail.id,
+      areaName: this.areaDetail.name,
+      areaId: this.areaDetail.id,
+      expiryDate: this.areaDetail.expiryDate,
+      investor: this.projectDetail.investor,
+      price: item.price,
+      deposit: item.deposit,
+      description: item.description,
+      acreage: item.acreage,
+      hostBank: this.projectDetail.hostBank,
+      bankName: this.projectDetail.bankName,
+      bankNumber: this.projectDetail.bankNumber,
+      qr: `https://qr.sepay.vn/img?acc=${this.projectDetail.bankNumber}&bank=${this.projectDetail.bankName}&amount=${item.deposit * 100}&des=013+${item.name}`
+
+    };
     this.modalService.confirm({
       nzTitle: 'Xác nhận đặt cọc',
       nzContent: 'Bạn có chắc muốn đặt cọc bất động sản này, sau khi ấn đồng ý, bất động sản sẽ được tạm khóa để bạn tiến hành quá trình thanh toán. Vui lòng cân nhắc kỹ !',
       nzOkText: 'Đồng ý',
       nzCancelText: 'Hủy',
       nzOnOk: () => {
-        this.openPaymentModal()
+        console.log('confirm');
+
+        this.openPaymentModal();
+        this.handleChangeLandStatus('2', item.id)
+        localStorage.setItem('isPaymentOpen',JSON.stringify(true))
+        localStorage.setItem('item', JSON.stringify(this.item))
       },
       nzOnCancel: () => {
 
@@ -96,8 +139,33 @@ export class AreaDetailComponent implements OnInit, OnChanges {
     this.dataService.changeStatusPaymentModal(true);
   }
 
-  handleChangeArea(item: any){
+  handleChangeArea(item: any) {
     this.areaId = item.id;
     this.getAreaDetail();
+  }
+
+  handleChangeLandStatus(status: string, id: string) {
+    let formData = new FormData();
+    formData.append("id", id);
+    formData.append("status", status);
+
+    this.apiService.updateLandStatus(formData).subscribe({
+      next: (res: any) => {
+        console.log(res);
+        console.log(status);
+        if (status == '2') {
+          this.stompClient.send("/app/lands_lock", {}, JSON.stringify(this.item))
+        }
+        if (status == '1') {
+          this.stompClient.send("/app/lands_unlock", {}, JSON.stringify(this.item))
+        }
+      }
+    })
+  }
+
+  handleReload(event: any) {
+    if (event.isCancel) {
+      this.handleChangeLandStatus('1', event.itemId)
+    }
   }
 }

@@ -17,15 +17,15 @@ const getBase64 = (file: File): Promise<string | ArrayBuffer | null> =>
   styleUrl: './add-land.component.css'
 })
 export class AddLandComponent implements OnInit {
-  name!:string;
-  description!:string;
-  thumbnail: NzUploadFile[]=[];
-  address!:string;
-  status!:string;
-  price!:string;
-  deposit!:string;
-  acreage!:string;
-  areaId!:string;
+  name!: string;
+  description!: string;
+  thumbnail: NzUploadFile[] = [];
+  address!: string;
+  status!: string;
+  price!: string;
+  deposit!: string;
+  acreage!: string;
+  areaId!: string;
   previewVisible: boolean = false;
   previewImage: string | undefined = '';
   // fileList: NzUploadFile[] = [];
@@ -42,7 +42,7 @@ export class AddLandComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.getAllProjects();  
+    this.getAllProjects();
   }
 
   handlePreview = async (file: NzUploadFile): Promise<void> => {
@@ -54,10 +54,6 @@ export class AddLandComponent implements OnInit {
   }
 
   handleChange(info: { file: NzUploadFile }): void {
-    // console.log('ckcll', info.file);
-    // console.log(this.fileLandImage);
-    // console.log(this.fileList);
-
     switch (info.file.status) {
       case 'uploading':
         this.loading = true;
@@ -73,7 +69,7 @@ export class AddLandComponent implements OnInit {
     }
   }
 
-  getAllProjects(){
+  getAllProjects() {
     this.apiService.getAllProject().subscribe({
       next: (res: any) => {
         this.projectList = res.data;
@@ -81,22 +77,22 @@ export class AddLandComponent implements OnInit {
     })
   }
 
-  getAreaByProjectId(){
+  getAreaByProjectId() {
     this.apiService.getProjectById(this.projectId).subscribe({
       next: (res: any) => {
         this.areaList = res.data.areas
         console.log(this.areaList);
-        
+
       }
     })
   }
 
-  handleChangeProject(){
+  handleChangeProject() {
     this.isProjectChange = true;
     this.getAreaByProjectId();
   }
 
-  handleAddLand(){
+  handleAddLand() {
     let formData = new FormData();
     formData.append("name", this.name);
     formData.append("description", this.description);

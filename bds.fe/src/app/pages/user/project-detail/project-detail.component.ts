@@ -7,6 +7,7 @@ import 'swiper/scss/pagination';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { DataService } from '../../../services/data.service';
 import { CountdownEvent } from 'ngx-countdown/interfaces';
+import { SocketService } from '../../../services/socket.service';
 
 @Component({
   selector: 'app-project-detail',
@@ -16,25 +17,31 @@ import { CountdownEvent } from 'ngx-countdown/interfaces';
 export class ProjectDetailComponent implements OnInit {
   projectId: string | null = this.route.snapshot.paramMap.get('id');
   projectDetail: any = {}
-  areaList : any = [];
+  areaList: any = [];
   item: any = [];
-  
+  stompClient!:any;
+
   constructor(
     private apiService: ApiService,
     private route: ActivatedRoute,
     private modalService: NzModalService,
-    private dataService: DataService
-    ){
+    private dataService: DataService,
+    private socketService: SocketService
+  ) {
+    this.stompClient = this.socketService.connect();
+    this.stompClient.connect({}, (frame:any) => {
+      this.stompClient.subscribe('/topic/lock_land', (message: any) => {
+        this.getProjectDetail();
+      })
+    })
 
   }
 
   ngOnInit(): void {
     this.getProjectDetail();
-    // this.dataService.changeStatusPaymentModal(false);
-    // this.dataService.changeStatusLandDetailModal(false);
   }
 
-  getProjectDetail():void {
+  getProjectDetail(): void {
     this.apiService.getProjectById(this.projectId).subscribe({
       next: (res: any) => {
         this.projectDetail = res.data;
@@ -43,11 +50,13 @@ export class ProjectDetailComponent implements OnInit {
     })
   }
 
-  showConfirm(item: any, areaName: string): void {
+  showConfirm(item: any, area: any): void {
     this.item = {
       ...item,
       projectName: this.projectDetail.name,
-      areaName: areaName,
+      areaName: area.name,
+      areaId: area.id,
+      projectId: this.projectId,
       investor: this.projectDetail.investor,
       price: item.price,
       deposit: item.deposit,
@@ -56,7 +65,7 @@ export class ProjectDetailComponent implements OnInit {
       hostBank: this.projectDetail.hostBank,
       bankName: this.projectDetail.bankName,
       bankNumber: this.projectDetail.bankNumber,
-      qr: `https://qr.sepay.vn/img?acc=${this.projectDetail.bankNumber}&bank=${this.projectDetail.bankName}&amount=${item.deposit*100}&des=013+${item.name}`
+      qr: `https://qr.sepay.vn/img?acc=${this.projectDetail.bankNumber}&bank=${this.projectDetail.bankName}&amount=${item.deposit * 100}&des=013+${item.name}`
     };
     this.modalService.confirm({
       nzTitle: 'Xác nhận đặt cọc',
@@ -64,11 +73,23 @@ export class ProjectDetailComponent implements OnInit {
       nzOkText: 'Đồng ý',
       nzCancelText: 'Hủy',
       nzOnOk: () => {
-        this.openPaymentModal()
+        this.openPaymentModal();
+        this.updateLandStatus("2", item.id)
       },
       nzOnCancel: () => {
       }
 
+    })
+  }
+
+  updateLandStatus(status: string, id: string){
+    let formData = new FormData();
+    formData.append("id", id);
+    formData.append("status", status);
+    this.apiService.updateLandStatus(formData).subscribe({
+      next: (res: any) => {
+        this.stompClient.send("/app/lands_lock", {}, JSON.stringify(this.item))
+      }
     })
   }
 
@@ -89,7 +110,7 @@ export class ProjectDetailComponent implements OnInit {
       hostBank: this.projectDetail.hostBank,
       bankName: this.projectDetail.bankName,
       bankNumber: this.projectDetail.bankNumber,
-      qr: `https://qr.sepay.vn/img?acc=${this.projectDetail.bankNumber}&bank=${this.projectDetail.bankName}&amount=${item.deposit*100}&des=013+${item.name}`
+      qr: `https://qr.sepay.vn/img?acc=${this.projectDetail.bankNumber}&bank=${this.projectDetail.bankName}&amount=${item.deposit * 100}&des=013+${item.name}`
     };
     this.dataService.changeStatusLandDetailModal(true);
   }

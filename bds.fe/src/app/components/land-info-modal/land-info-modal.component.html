@@ -1,4 +1,4 @@
-<nz-modal [(nzVisible)]="isVisible" [nzStyle]="{ top: '30px' }" (nzOnCancel)="handleCancel()">
+<nz-modal [(nzVisible)]="isVisible" [nzStyle]="{ top: '30px' }" (nzOnCancel)="handleCancel()" >
     <div *nzModalTitle style="padding: 0!important">
         <img src="../../../assets/img/flat2.jpg" alt="flat-image" width="100%">
     </div>
@@ -6,7 +6,7 @@
         <h1>{{item.name}}</h1>
         <p>Giá niêm yết: {{item.price}} tỷ đồng</p>
         <p>Giá đặt cọc: {{item.deposit}} triệu đồng</p>
-        <div class="status">{{item.status==0?'Sắp mở bán':item.status==1?'Đang mở bán':'Đã hết'}}</div>
+        <div class="status">{{item.status==0?'Sắp mở bán':item.status==1?'Đang mở bán': item.status == 2? 'Đang đặt cọc':'Đã hết'}}</div>
             <h3>Mô tả</h3>
             <div><strong>Dự án: </strong>{{item.projectName}}</div>
             <div><strong>Phân khu: </strong>{{item.areaName}}</div>
@@ -15,6 +15,6 @@
             <div><strong>Diện tích: </strong>{{item.acreage}}/m2</div>
         </div>
         <div *nzModalFooter>
-            <button nz-button (click)="showConfirm()">Đặt cọc</button>
+            <button nz-button (click)="showConfirm()" [disabled]="item.status == 2 || item.status == 3">Đặt cọc</button>
         </div>
 </nz-modal>

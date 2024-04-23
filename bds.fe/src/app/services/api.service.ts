@@ -89,4 +89,11 @@ export class ApiService {
     return this.http.put(`${baseUrl}/lands`,request)
   }
 
+  getLandById(id: string | null):Observable<any> {
+    return this.http.get(`${baseUrl}/lands/${id}`)
+  }
+
+  updateLandStatus(request: any):Observable<any>{
+    return this.http.put(`${baseUrl}/lands/temporarilyLockOrUnLock`,request)
+  }
 }

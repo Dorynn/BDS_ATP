@@ -86,7 +86,7 @@ const routes: Routes = [
             component: AddLandComponent
           },
           {
-            path: 'edit-land',
+            path: 'edit-land/:id',
             component: EditLandComponent
           },
           {

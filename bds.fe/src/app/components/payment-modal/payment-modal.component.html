@@ -1,9 +1,9 @@
-<nz-modal [(nzVisible)]="isVisible" (nzOnCancel)="onCancel()">
+<nz-modal [(nzVisible)]="isVisible" [nzClosable]="false" [nzMaskClosable]="false">
     <ng-container *nzModalTitle>
         <div class="modal__header">
             <div>Thanh toán chuyển khoản</div>
             <div>
-                <countdown (event)="handleEvent($event)" [config]="config" class="countdown"></countdown>
+                <countdown (event)="handleEvent($event)" [config]="{leftTime: item.expiryDate*60, format: 'mm:ss'}" class="countdown"></countdown>
             </div>
             <div>Thời hạn thanh toán</div>
         </div>
@@ -54,7 +54,7 @@
 
     <ng-container *nzModalFooter>
         <div class="modal__footer">
-            <button nz-button (click)="onCancel()">Hủy</button>
+            <button nz-button (click)="showConfirmCancel()">Hủy</button>
             <button nz-button (click)="handleTransaction()">Tôi đã chuyển khoản</button>
         </div>
     </ng-container>

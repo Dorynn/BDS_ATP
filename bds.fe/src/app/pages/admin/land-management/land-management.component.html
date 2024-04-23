@@ -53,7 +53,7 @@
             <td>{{item.areaDTO.projectName}}</td>
             <td>{{item.status == 0? 'Sắp mở bán': item.status == 1 ? 'Đang mở bán':item.status == 2 ? 'Đang đặt cọc' : 'Đã đặt cọc'}}</td>
             <td>
-                <button nz-button class="background-blue">Cập nhật</button>
+                <button nz-button class="background-blue" (click)="goToEditLand(item.id)">Cập nhật</button>
                 <button nz-button style="margin: 10px;" class="background-red">Xóa</button>
                 <!-- <span nz-icon nzType="eye" nzTheme="outline"></span> -->
             </td>
