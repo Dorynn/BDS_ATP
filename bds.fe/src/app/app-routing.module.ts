@@ -13,27 +13,20 @@ import { EditProjectComponent } from './pages/admin/edit-project/edit-project.co
 import { LandManagementComponent } from './pages/admin/land-management/land-management.component';
 import { ProjectManagerComponent } from './pages/admin/project-manager/project-manager.component';
 import { TransactionManagementComponent } from './pages/admin/transaction-management/transaction-management.component';
+import { UserListComponent } from './pages/admin/user-list/user-list.component';
 import { ViewTransactionComponent } from './pages/admin/view-transaction/view-transaction.component';
 import { AreaDetailComponent } from './pages/user/area-detail/area-detail.component';
 import { HomepageComponent } from './pages/user/homepage/homepage.component';
 import { ProjectDetailComponent } from './pages/user/project-detail/project-detail.component';
 
 const routes: Routes = [
-  // { path: '', pathMatch: 'full', redirectTo: '/admin' },
+  { path: '', pathMatch: 'full', redirectTo: '' },
   {
     path: '',
     component: MainComponent,
     children: [
       {
-        path: 'admin',
-        component: AdminComponent
-      },
-      {
-        path: 'user',
-        component: UserComponent,
-      },
-      {
-        path: 'user',
+        path: '',
         children: [
           {
             path: 'homepage',
@@ -51,7 +44,7 @@ const routes: Routes = [
         ]
       },
       {
-        path: 'admin',
+        path: '',
         children: [
           {
             path: 'add-project',
@@ -94,8 +87,12 @@ const routes: Routes = [
             component: TransactionManagementComponent
           },
           {
-            path: 'view-transaction',
+            path: 'view-transaction/:id',
             component: ViewTransactionComponent
+          },
+          {
+            path: 'user',
+            component: UserListComponent
           }
         ]
       }

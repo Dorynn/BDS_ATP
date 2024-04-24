@@ -33,11 +33,11 @@ export class AreaManagementComponent implements OnInit {
   }
 
   goToAddArea(){
-    this.router.navigateByUrl('/admin/add-area');
+    this.router.navigateByUrl('/add-area');
   }
 
   goToEditArea(id: string){
-    this.router.navigateByUrl(`/admin/edit-area/${id}`)
+    this.router.navigateByUrl(`/edit-area/${id}`)
   }
 
   handleChangePage(e: any){

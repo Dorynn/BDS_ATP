@@ -30,10 +30,9 @@
         </div>
     </div>
 
-    <button nz-button (click)="goToAddLand()"><span nz-icon nzType="plus" nzTheme="outline"></span>Thêm phân
-        khu</button>
+    <button nz-button (click)="goToAddLand()" class="add-btn"><span nz-icon nzType="plus" nzTheme="outline"></span>Thêm khu đất</button>
 </div>
-<nz-table [nzData]="landList" nzSize="small" nzShowPagination="false" [nzScroll]="{y: '430px' }">
+<nz-table [nzData]="landList" nzSize="small" nzShowPagination="false" [nzScroll]="{y: '400px' }">
     <thead>
         <tr>
             <th nzWidth="50px">STT</th>
@@ -61,4 +60,4 @@
         }
     </tbody>
 </nz-table>
-<nz-pagination [nzPageIndex]="1" [nzTotal]="10" [nzPageSize]="10"></nz-pagination>
+<nz-pagination [nzPageIndex]="currentPage+1" [nzTotal]="total" [nzPageSize]="pageSize" (nzPageIndexChange)="handleChangePage($event)"></nz-pagination>

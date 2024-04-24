@@ -39,7 +39,7 @@ export class HomepageComponent implements OnInit {
   }
 
   goToProjectDetail(id: string):void {
-    this.router.navigateByUrl(`/user/project-detail/${id}`)
+    this.router.navigateByUrl(`/project-detail/${id}`)
   }
 
   handleChangePage(e: any) {

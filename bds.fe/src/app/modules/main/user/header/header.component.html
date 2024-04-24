@@ -9,8 +9,29 @@
             <li class="list-item">Chính sách</li>
         </ul>
     </div>
+    @if (isLogin) {
+    <div nz-col [nzOffset]="12" [nzDropdownMenu]="menu" nz-dropdown nzTrigger="click" style="margin-right: 50px">
+        <img [src]="user.picture" alt="avatar" width="40px" style="border-radius: 100px">
+        <span style="color: #f57222; font-weight: 500; text-transform: uppercase;">{{user.name}}</span>
+    </div>
+
+    <nz-dropdown-menu #menu="nzDropdownMenu">
+        <ul nz-menu>
+            <li nz-menu-item><span nz-icon nzType="user" nzTheme="outline"></span> Trang cá nhân</li>
+            <li nz-menu-item><span nz-icon nzType="bar-chart" nzTheme="outline"></span> Lịch sử giao dịch</li>
+            <li nz-menu-item (click)="handleLogout()"><span nz-icon nzType="logout" nzTheme="outline"></span> Đăng xuất</li>
+        </ul>
+    </nz-dropdown-menu>
+    }@else {
     <div class="header__login">
         <button nz-button nzShape="round" nzType="text" (click)="showRegisterModal()">Đăng ký</button>
         <button nz-button nzShape="round" (click)="showModal()">Đăng nhập</button>
     </div>
+    }
 </div>
+
+@if (isOpenLogin) {
+<app-login (statusChange)="closeLogin()" (checkLogin)="checkLogin($event)"></app-login>
+}
+<app-register></app-register>
+<app-verify-phone-number></app-verify-phone-number>

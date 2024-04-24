@@ -1,3 +1,5 @@
+declare var google: any;
+
 import { Component } from '@angular/core';
 
 @Component({
@@ -6,5 +8,8 @@ import { Component } from '@angular/core';
   styleUrl: './user.component.css'
 })
 export class UserComponent {
+  handleModalChange(){
+
+  }
 
 }

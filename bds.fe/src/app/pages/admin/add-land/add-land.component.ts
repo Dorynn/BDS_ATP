@@ -38,7 +38,7 @@ export class AddLandComponent implements OnInit {
 
   constructor(
     private msg: NzMessageService,
-    private apiService: ApiService
+    private apiService: ApiService,
   ) { }
 
   ngOnInit(): void {
@@ -63,7 +63,7 @@ export class AddLandComponent implements OnInit {
         this.loading = false;
         break;
       case 'error':
-        this.msg.error('Network error');
+        // this.msg.error('Network error');
         this.loading = false;
         break;
     }
@@ -105,6 +105,7 @@ export class AddLandComponent implements OnInit {
     formData.append("areaId", this.areaId)
     this.apiService.createLand(formData).subscribe({
       next: (res: any) => {
+        this.msg.success('Tạo mới khu đất thành công!')
         this.name = '';
         this.description = '';
         this.thumbnail = [];
@@ -115,6 +116,10 @@ export class AddLandComponent implements OnInit {
         this.deposit = '';
         this.areaId = '';
         this.isProjectChange = false;
+        this.projectId = ''
+      },
+      error:(err: any) => {
+        this.msg.error(`Tạo mới khu đất thất bại, lỗi ${err}`)
       }
     })
   }

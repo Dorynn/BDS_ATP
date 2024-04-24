@@ -12,6 +12,9 @@ export class LandManagementComponent implements OnInit {
   projectList: any = [];
   areaList: any = [];
   name: string = '';
+  total: number = 0;
+  currentPage: number = 0;
+  pageSize: number = 10;
   requestParams: any = {
     name: '',
     projectId: '',
@@ -20,7 +23,7 @@ export class LandManagementComponent implements OnInit {
 
   constructor(
     private router: Router,
-    private apiService: ApiService
+    private apiService: ApiService,
   ) {}
 
   ngOnInit(): void {
@@ -47,17 +50,28 @@ export class LandManagementComponent implements OnInit {
   getLandList(request: any){
     this.apiService.getLandList(request).subscribe({
       next: (res: any) => {
-        this.landList = res.data
+        this.landList = res.data;
+        this.total = res.totalRecords;
+        this.currentPage = res.currentPage;
+        this.pageSize = res.currentSize;
       }
     })
 
   }
 
   goToAddLand(){
-    this.router.navigateByUrl('/admin/add-land')
+    this.router.navigateByUrl('/add-land')
   }
 
   goToEditLand(id: string){
-    this.router.navigateByUrl(`/admin/edit-land/${id}`)
+    this.router.navigateByUrl(`/edit-land/${id}`)
+  }
+
+  handleChangePage(e:any){
+    let param = {
+      pageIndex: e-1,
+      pageSize: 10
+    }
+    this.getLandList(param)
   }
 }

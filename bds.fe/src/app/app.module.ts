@@ -59,6 +59,8 @@ import { CountdownModule } from 'ngx-countdown';
 import { NzDropDownModule } from 'ng-zorro-antd/dropdown';
 import { LandManagementComponent } from './pages/admin/land-management/land-management.component';
 import { NzUploadModule } from 'ng-zorro-antd/upload';
+import { UserListComponent } from './pages/admin/user-list/user-list.component';
+import { NzMessageModule } from 'ng-zorro-antd/message';
 registerLocaleData(en);
 
 @NgModule({
@@ -90,7 +92,8 @@ registerLocaleData(en);
     PaymentModalComponent,
     VerifyPhoneNumberComponent,
     LandManagementComponent,
-    AddLandComponent
+    AddLandComponent,
+    UserListComponent
   ],
   imports: [
     BrowserModule,
@@ -118,7 +121,8 @@ registerLocaleData(en);
     NzQRCodeModule,
     CountdownModule,
     NzDropDownModule,
-    NzUploadModule
+    NzUploadModule,
+    NzMessageModule
   ],
   providers: [
     { provide: NZ_I18N, useValue: en_US },

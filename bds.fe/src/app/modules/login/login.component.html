@@ -1,50 +1,21 @@
 <nz-modal [(nzVisible)]="isVisible" [nzTitle]="modalTitle" [nzContent]="modalContent" [nzFooter]="modalFooter"
     (nzOnCancel)="handleCancel()">
-    <ng-template #modalTitle><h2 class="title">Đăng nhập</h2></ng-template>
+    <ng-template #modalTitle>
+        <h2 class="title">Đăng nhập</h2>
+    </ng-template>
 
     <ng-template #modalContent>
-        <form class="login-modal" nz-form>
-            <div nz-row [class.error]="isInvalid || isEmpty">
-                <span class="prefix" nz-col [nzSpan]="2">
-                    <i class="fa-regular fa-user"></i>
-                </span>
-                <input [(ngModel)]="phonenumber" type="text" name="phonenumber" nz-input nz-col [nzSpan]="22" placeholder="Nhập số điện thoại của bạn" (keyup)="handleOnchange()">
-            </div>
-            <div nz-row [class.error]="isInvalid || isEmpty">
-                <span nz-col [nzSpan]="2" class="prefix">
-                    <i class="fa-solid fa-lock"></i>
-                </span>
-                <input [(ngModel)]="password" nz-col [nzSpan]="20" [type]="passwordType" nz-input placeholder="Nhập mật khẩu của bạn" (keyup)="handleOnchange()" name="password">
-                <span nz-col [nzSpan]="2" class="suffix" (click)="showPassword()">
-                    @if(isShowPassword === true) {
-                        <i class="fa-regular fa-eye"></i>
-                    }@else {
-                        <i class="fa-regular fa-eye-slash"></i>
-                    }
-                </span>
-            </div>
-            @if(isEmpty){
-                <p class="error-message">Vui lòng nhập đầy đủ thông tin để đăng nhập</p>
-            }
-            @if(isInvalid){
-                <p class="error-message">Số điện thoại hoặc mật khẩu không đúng. Vui lòng nhập lại</p>
-            }
-        </form>
-    </ng-template>
-    
-    <ng-template #modalFooter>
-        <div class="modal__footer">
-            <div nz-row nzJustify="space-between">
-                <label for="rememberPassword" nz-col><input id="rememberPassword" type="checkbox"> Ghi nhớ mật khẩu</label>
-                <span class="link-text" nz-col>Quên mật khẩu?</span>
-            </div>
-            <button nz-button nzBlock class="login-btn" (click)="handleLogin()">Đăng nhập</button>
-            <nz-divider nzText="HOẶC"></nz-divider>
-            <div class="other-login-method" nz-flex nzJustify="space-between">
-                <button nz-button><i class="fa-brands fa-google" style="color: #de3b40; margin-right: 10px"></i> Đăng nhập với Google</button>
-                <button nz-button><i class="fa-brands fa-facebook" style="color: #0866ff; margin-right: 10px"></i>Đăng nhập với Facebook</button>
-            </div>
-            <div class="login-modal__register">Bạn không có tài khoản? <span class="link-text" (click)="showRegisterModal()">Đăng ký</span></div>
+        <div class="modal__content">
+            <div id="googleSignInButtonContainer"></div>
+            <!-- <button nz-button nzBlock><i class="fa-brands fa-facebook"
+                    style="color: #0866ff; margin-right: 10px"></i>Đăng nhập với Facebook</button> -->
+            <div style="margin-top: 25px">Bằng cách đăng ký, bạn đồng ý với <strong>điều khoản sử dụng</strong> và <strong>điều khoản bảo
+                    mật</strong></div>
         </div>
+    </ng-template>
+
+    <ng-template #modalFooter>
+        <div class="modal__footer">Bạn đã có tài khoản? <span class="link-text" type="button"
+                (click)="showRegisterModal()">Đăng nhập</span></div>
     </ng-template>
 </nz-modal>

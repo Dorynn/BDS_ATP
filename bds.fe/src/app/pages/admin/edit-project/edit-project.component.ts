@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { NzMessageService } from 'ng-zorro-antd/message';
 import { threadId } from 'worker_threads';
 import { ApiService } from '../../../services/api.service';
 
@@ -35,7 +36,8 @@ export class EditProjectComponent implements OnInit {
 
   constructor(
     private apiService: ApiService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private msg: NzMessageService
   ){}
 
   ngOnInit(): void {
@@ -73,8 +75,6 @@ export class EditProjectComponent implements OnInit {
   editProject(){
     const formData = new FormData();
     let id: string = String(this.projectId);
-    // console.log(this.provinceId);
-    
     formData.append("id", id)
     formData.append("name", this.name)
     formData.append("description", this.description)
@@ -98,8 +98,10 @@ export class EditProjectComponent implements OnInit {
 
     this.apiService.updateProject(formData).subscribe({
       next: (res: any) => {
-        console.log(res);
-        
+        this.msg.success("Cập nhật dự án thành công!")
+      },
+      error: (err:any) => {
+        this.msg.error("Cập nhật giao dịch thất bại")
       }
     })
   }

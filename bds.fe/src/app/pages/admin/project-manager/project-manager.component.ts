@@ -42,10 +42,10 @@ export class ProjectManagerComponent implements OnInit {
   }
 
   goToAddProject() {
-    this.router.navigateByUrl('/admin/add-project')
+    this.router.navigateByUrl('/add-project')
   }
 
   goToEditProject(id: string) {
-    this.router.navigateByUrl(`/admin/edit-project/${id}`)
+    this.router.navigateByUrl(`/edit-project/${id}`)
   }
 }

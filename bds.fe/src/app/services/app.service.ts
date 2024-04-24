@@ -1,11 +1,17 @@
-import { Injectable } from '@angular/core';
+declare var google: any;
+import { inject, Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AppService {
-
+  router = inject(Router)
   constructor() { }
 
-  
+  signOut(){
+    google.accounts.id.disableAutoSelect();
+    sessionStorage.removeItem("loginInf")
+    // this.router.navigate(['/']);
+  }
 }

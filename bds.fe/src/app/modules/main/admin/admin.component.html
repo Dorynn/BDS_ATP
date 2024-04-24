@@ -14,7 +14,6 @@
     <nz-dropdown-menu #menu="nzDropdownMenu">
       <ul nz-menu>
         <li nz-menu-item><span nz-icon nzType="user" nzTheme="outline"></span> Trang cá nhân</li>
-        <li nz-menu-item><span nz-icon nzType="bar-chart" nzTheme="outline"></span> Lịch sử giao dịch</li>
         <li nz-menu-item><span nz-icon nzType="logout" nzTheme="outline"></span> Đăng xuất</li>
       </ul>
     </nz-dropdown-menu>
@@ -22,23 +21,23 @@
   <nz-layout>
     <nz-sider nzCollapsible [(nzCollapsed)]="isCollapsed" [nzTrigger]="null" class="background-orange">
       <ul nz-menu nzMode="inline" class="background-orange">
-        <li nz-menu-item [routerLink]="">
+        <li nz-menu-item [routerLink]="'/user'" routerLinkActive="linkActive">
           <span nz-icon nzType="user"></span>
           <span>Quản lý người dùng</span>
         </li>
-        <li nz-menu-item routerLink="/admin/project-management" routerLinkActive="linkActive">
+        <li nz-menu-item routerLink="/project-management" routerLinkActive="linkActive">
           <span nz-icon nzType="file-text"></span>
           <span>Quản lý dự án</span>
         </li>
-        <li nz-menu-item routerLink="/admin/area-management" routerLinkActive="linkActive">
+        <li nz-menu-item routerLink="/area-management" routerLinkActive="linkActive">
           <span nz-icon nzType="pie-chart"></span>
           <span>Quản lý khu vực</span>
         </li>
-        <li nz-menu-item routerLink="/admin/land-management" routerLinkActive="linkActive">
+        <li nz-menu-item routerLink="/land-management" routerLinkActive="linkActive">
           <span nz-icon nzType="home"></span>
-          <span>Quản lý lô đất</span>
+          <span>Quản lý khu đất</span>
         </li>
-        <li nz-menu-item routerLink="/admin/transaction-management" routerLinkActive="linkActive">
+        <li nz-menu-item routerLink="/transaction-management" routerLinkActive="linkActive">
           <span nz-icon nzType="qrcode"></span>
           <span>Quản lý giao dịch</span>
         </li>

@@ -96,4 +96,16 @@ export class ApiService {
   updateLandStatus(request: any):Observable<any>{
     return this.http.put(`${baseUrl}/lands/temporarilyLockOrUnLock`,request)
   }
+
+  getTransactionList(params: any):Observable<any> {
+    return this.http.get(`${baseUrl}/transactions`, {params: params})
+  }
+
+  updateTransaction(request: any):Observable<any> {
+    return this.http.put(`${baseUrl}/transactions/confirmTransactionSuccessOrFail`,request);
+  }
+
+  getTransactionById(id: string | null) {
+    return this.http.get(`${baseUrl}/transactions/${id}`);
+  }
 }
