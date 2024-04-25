@@ -61,6 +61,9 @@ import { LandManagementComponent } from './pages/admin/land-management/land-mana
 import { NzUploadModule } from 'ng-zorro-antd/upload';
 import { UserListComponent } from './pages/admin/user-list/user-list.component';
 import { NzMessageModule } from 'ng-zorro-antd/message';
+import { TransactionHistoryComponent } from './pages/user/transaction-history/transaction-history.component';
+import { NzTabsModule } from 'ng-zorro-antd/tabs';
+
 registerLocaleData(en);
 
 @NgModule({
@@ -93,7 +96,8 @@ registerLocaleData(en);
     VerifyPhoneNumberComponent,
     LandManagementComponent,
     AddLandComponent,
-    UserListComponent
+    UserListComponent,
+    TransactionHistoryComponent,
   ],
   imports: [
     BrowserModule,
@@ -122,7 +126,8 @@ registerLocaleData(en);
     CountdownModule,
     NzDropDownModule,
     NzUploadModule,
-    NzMessageModule
+    NzMessageModule,
+    NzTabsModule
   ],
   providers: [
     { provide: NZ_I18N, useValue: en_US },

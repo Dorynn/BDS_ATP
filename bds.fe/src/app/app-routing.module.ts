@@ -18,6 +18,7 @@ import { ViewTransactionComponent } from './pages/admin/view-transaction/view-tr
 import { AreaDetailComponent } from './pages/user/area-detail/area-detail.component';
 import { HomepageComponent } from './pages/user/homepage/homepage.component';
 import { ProjectDetailComponent } from './pages/user/project-detail/project-detail.component';
+import { TransactionHistoryComponent } from './pages/user/transaction-history/transaction-history.component';
 
 const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: '' },
@@ -93,6 +94,10 @@ const routes: Routes = [
           {
             path: 'user',
             component: UserListComponent
+          },
+          {
+            path: 'transaction-history',
+            component: TransactionHistoryComponent
           }
         ]
       }

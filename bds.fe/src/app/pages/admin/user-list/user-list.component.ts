@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../../../services/api.service';
 
 @Component({
@@ -6,7 +6,7 @@ import { ApiService } from '../../../services/api.service';
   templateUrl: './user-list.component.html',
   styleUrl: './user-list.component.css'
 })
-export class UserListComponent {
+export class UserListComponent implements OnInit {
   userList: any = [];
   total: number = 0;
   currentPage: number = 1;
@@ -16,14 +16,21 @@ export class UserListComponent {
     private apiService: ApiService
   ){}
   
-  getUserList(){
-
+  ngOnInit(): void {
+    this.getUserList({})
+  }
+  getUserList(params: any){
+    this.apiService.getUserList(params).subscribe({
+      next: (res: any) => {
+        this.userList = res.data
+      }
+    })
   }
   handleChangePage(event: any){
     let params = {
-      currentPage:this.currentPage,
-      currentSize:this.pageSize
+      pageIndex:this.currentPage,
+      pageSize:this.pageSize
     }
-  
+    this.getUserList(params)
   }
 }

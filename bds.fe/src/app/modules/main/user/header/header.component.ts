@@ -1,5 +1,6 @@
 declare var google: any;
 import { AfterViewInit, Component, ElementRef, EventEmitter, OnInit, Output, TemplateRef, ViewChild, viewChild } from '@angular/core';
+import { Router } from '@angular/router';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { AppService } from '../../../../services/app.service';
 import { DataService } from '../../../../services/data.service';
@@ -15,7 +16,8 @@ export class HeaderComponent implements OnInit {
   user: any;
   constructor(
     private dataService: DataService,
-    private appService: AppService
+    private appService: AppService,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -49,5 +51,9 @@ export class HeaderComponent implements OnInit {
   checkLogin(e: any) {
     this.isLogin = true;
     this.user = e
+  }
+
+  goToTransaction(){
+    this.router.navigateByUrl('/transaction-history')
   }
 }

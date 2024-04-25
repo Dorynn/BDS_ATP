@@ -108,4 +108,8 @@ export class ApiService {
   getTransactionById(id: string | null) {
     return this.http.get(`${baseUrl}/transactions/${id}`);
   }
+
+  getUserList(params:any){
+    return this.http.get(`${baseUrl}/users`, {params: params})
+  }
 }

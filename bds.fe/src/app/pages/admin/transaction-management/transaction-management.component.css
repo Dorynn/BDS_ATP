@@ -12,6 +12,7 @@ nz-select {
 nz-table {
     margin-top: 25px;
     margin-bottom: 15px;
+    border: none!important;
 }
 
 nz-pagination {

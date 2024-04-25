@@ -36,7 +36,6 @@ export class PaymentModalComponent implements OnInit {
   handleEvent(e: CountdownEvent) {
     console.log(e);
     if (e.left == 0) {
-      // alert('Time out');
       this.onCancel()
       this.handleReload.emit({isCancel: true, itemId: this.item.id})
       localStorage.setItem('isPaymentOpen', JSON.stringify(false));

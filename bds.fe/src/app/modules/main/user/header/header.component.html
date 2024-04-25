@@ -4,8 +4,8 @@
         <h1 nz-typography>BDS</h1>
         <ul nz-flex nzAlign="center">
             <li class="list-item active">Giới thiệu</li>
-            <li class="list-item" routerLink="/user/homepage" type="button">Dự án</li>
-            <li class="list-item">Hỗ trợ</li>
+            <li class="list-item" routerLink="/homepage" type="button">Dự án</li>
+            <li class="list-item" routerLink="/">Hỗ trợ</li>
             <li class="list-item">Chính sách</li>
         </ul>
     </div>
@@ -18,7 +18,7 @@
     <nz-dropdown-menu #menu="nzDropdownMenu">
         <ul nz-menu>
             <li nz-menu-item><span nz-icon nzType="user" nzTheme="outline"></span> Trang cá nhân</li>
-            <li nz-menu-item><span nz-icon nzType="bar-chart" nzTheme="outline"></span> Lịch sử giao dịch</li>
+            <li nz-menu-item (click)="goToTransaction()"><span nz-icon nzType="bar-chart" nzTheme="outline"></span> Lịch sử giao dịch</li>
             <li nz-menu-item (click)="handleLogout()"><span nz-icon nzType="logout" nzTheme="outline"></span> Đăng xuất</li>
         </ul>
     </nz-dropdown-menu>
