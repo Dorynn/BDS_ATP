@@ -66,3 +66,19 @@ button.background-brown:hover {
 swiper-container .swiper-button-next{
     color: #000;
 }
+
+.up-coming{
+    background-color:#DE3B40;
+}
+
+.sale {
+    background-color: #62CD14;
+}
+
+.temp-lock {
+    background-color: #EFB034;
+}
+
+.locked {
+    background-color: #565D6D
+}

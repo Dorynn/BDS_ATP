@@ -8,6 +8,7 @@ import { NzModalService } from 'ng-zorro-antd/modal';
 import { DataService } from '../../../services/data.service';
 import { CountdownEvent } from 'ngx-countdown/interfaces';
 import { SocketService } from '../../../services/socket.service';
+import { debug } from 'console';
 
 @Component({
   selector: 'app-project-detail',
@@ -19,7 +20,7 @@ export class ProjectDetailComponent implements OnInit {
   projectDetail: any = {}
   areaList: any = [];
   item: any = [];
-  stompClient!:any;
+  stompClient!: any;
 
   constructor(
     private apiService: ApiService,
@@ -28,17 +29,35 @@ export class ProjectDetailComponent implements OnInit {
     private dataService: DataService,
     private socketService: SocketService
   ) {
-    this.stompClient = this.socketService.connect();
-    this.stompClient.connect({}, (frame:any) => {
-      this.stompClient.subscribe('/topic/lock_land', (message: any) => {
-        this.getProjectDetail();
-      })
-    })
 
   }
 
+  connectSocket(){
+    this.stompClient = this.socketService.connect();
+    this.stompClient.connect({}, (frame: any) => {
+      this.stompClient.subscribe('/topic/block_land', (message: any) => {
+        console.log(message);
+        this.getProjectDetail();
+      })
+      this.stompClient.subscribe('/topic/unlock_land', (message: any) => {
+        console.log(message);
+        this.getProjectDetail();
+      })
+    })
+  }
+
   ngOnInit(): void {
+    this.connectSocket();
     this.getProjectDetail();
+    let isPaymentOpen = localStorage.getItem("isPaymentOpen");
+    let item = localStorage.getItem("item")
+    if (isPaymentOpen === 'true') {
+      if (item) {
+        this.item = JSON.parse(item)
+        this.dataService.changeStatusPaymentModal(false);
+        this.updateLandStatus('1', this.item.id)
+      }
+    }
   }
 
   getProjectDetail(): void {
@@ -54,9 +73,10 @@ export class ProjectDetailComponent implements OnInit {
     this.item = {
       ...item,
       projectName: this.projectDetail.name,
+      projectId: this.projectId,
       areaName: area.name,
       areaId: area.id,
-      projectId: this.projectId,
+      expiryDate: area.expiryDate,
       investor: this.projectDetail.investor,
       price: item.price,
       deposit: item.deposit,
@@ -74,7 +94,9 @@ export class ProjectDetailComponent implements OnInit {
       nzCancelText: 'Hủy',
       nzOnOk: () => {
         this.openPaymentModal();
-        this.updateLandStatus("2", item.id)
+        this.updateLandStatus('2', item.id);
+        localStorage.setItem('isPaymentOpen', JSON.stringify(true))
+        localStorage.setItem('item', JSON.stringify(this.item))
       },
       nzOnCancel: () => {
       }
@@ -82,13 +104,21 @@ export class ProjectDetailComponent implements OnInit {
     })
   }
 
-  updateLandStatus(status: string, id: string){
+  updateLandStatus(status: string, id: string) {
     let formData = new FormData();
     formData.append("id", id);
     formData.append("status", status);
     this.apiService.updateLandStatus(formData).subscribe({
       next: (res: any) => {
-        this.stompClient.send("/app/lands_lock", {}, JSON.stringify(this.item))
+        console.log(status);
+        this.getProjectDetail();
+
+        if (status == '2') {
+          this.stompClient.send("/app/lands_lock", {}, JSON.stringify(this.item))
+        }
+        if (status == '1') {
+          this.stompClient.send("/app/lands_unlock", {}, JSON.stringify(this.item))
+        }
       }
     })
   }
@@ -97,11 +127,13 @@ export class ProjectDetailComponent implements OnInit {
     this.dataService.changeStatusPaymentModal(true);
   }
 
-  openLandDetailModal(item: any, areaName: string) {
+  openLandDetailModal(item: any, area: any) {
     this.item = {
       ...item,
       projectName: this.projectDetail.name,
-      areaName: areaName,
+      projectID: this.projectDetail.id,
+      areaName: area.name,
+      areaId: area.id,
       investor: this.projectDetail.investor,
       price: item.price,
       deposit: item.deposit,
@@ -113,5 +145,13 @@ export class ProjectDetailComponent implements OnInit {
       qr: `https://qr.sepay.vn/img?acc=${this.projectDetail.bankNumber}&bank=${this.projectDetail.bankName}&amount=${item.deposit * 100}&des=013+${item.name}`
     };
     this.dataService.changeStatusLandDetailModal(true);
+  }
+
+  handleReload(event: any) {
+    console.log(event);
+    
+    if (event.isCancel) {
+      this.updateLandStatus('1', event.itemId)
+    }
   }
 }

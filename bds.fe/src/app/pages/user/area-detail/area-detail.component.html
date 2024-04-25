@@ -10,9 +10,9 @@
 
 <div class="menu">
     <ul nz-flex>
-        <li [routerLink]="['/user/project-detail',projectId]" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">All</li>
+        <li [routerLink]="['/project-detail',projectId]" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">All</li>
         @for (item of areaList; track $index) {
-        <li [routerLink]="['/user/project-detail',projectId,'area-detail', item.id]" routerLinkActive="active"
+        <li [routerLink]="['/project-detail',projectId,'area-detail', item.id]" routerLinkActive="active"
             [routerLinkActiveOptions]="{exact:
             true}" (click)="handleChangeArea(item)">
             {{item.name}}</li>
@@ -39,10 +39,10 @@
                     <div nz-row class="wrapper">
                         <div nz-col [nzSpan]="16" class="wrapper__info">
                             <span>{{item.name}}</span>
-                            <span class="status">{{item.status==0?'Sắp mở bán': item.status==1?'Đang mở bán': item.status ==2?'Đang đặt cọc':'Đã đặt cọc'}}</span>
+                            <span class="status" [class]="{'up-coming':item.status==0, 'sale': item.status==1, 'temp-lock':item.status==2, 'locked': item.status==3}">{{item.status==0?'Sắp mở bán': item.status==1?'Đang mở bán': item.status ==2?'Đang đặt cọc':'Đã đặt cọc'}}</span>
                             <p class="brief">{{item.description}} | {{item.acreage}} m2</p>
                             <p class="price">Giá niêm yết: {{item.price}} tỷ</p>
-                            <button nz-button class="background-brown" (click)="showConfirm(item)" [disabled]="item.status==2 || item.status == 3">Đặt cọc ngay</button>
+                            <button nz-button class="background-brown" (click)="showConfirm(item)" [disabled]="item.status!==1">Đặt cọc ngay</button>
                         </div>
                         <div nz-col [nzSpan]="8" (click)="openLandDetailModal(item)">
                             <img class="image" src="../../../../assets/img/flat2.jpg" alt="" height="100%" width="100%">

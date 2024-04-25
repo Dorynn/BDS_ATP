@@ -39,7 +39,6 @@ export class AreaDetailComponent implements OnInit {
       })
       this.stompClient.subscribe('/topic/unlock_land', (message: any) => {
         console.log(message);
-
         this.getAreaDetail();
       })
     })
@@ -50,8 +49,14 @@ export class AreaDetailComponent implements OnInit {
     this.getAreaDetail()
     this.getProjectDetail();
     let isPaymentOpen = localStorage.getItem("isPaymentOpen");
+    let item = localStorage.getItem("item")
     if(isPaymentOpen==='true'){
-      this.dataService.changeStatusPaymentModal(true);
+      if(item){
+        this.item = JSON.parse(item)
+        this.dataService.changeStatusPaymentModal(false);
+        this.handleChangeLandStatus('1', this.item.id)
+      }
+
     }
   }
 
@@ -164,6 +169,8 @@ export class AreaDetailComponent implements OnInit {
   }
 
   handleReload(event: any) {
+    console.log(event);
+    
     if (event.isCancel) {
       this.handleChangeLandStatus('1', event.itemId)
     }

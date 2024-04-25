@@ -9,9 +9,9 @@
 </div>
 <div class="menu">
     <ul nz-flex>
-        <li [routerLink]="['/user/project-detail',projectId]" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">All</li>
+        <li [routerLink]="['/project-detail',projectId]" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">All</li>
         @for (item of areaList; track $index) {
-        <li [routerLink]="['/user/project-detail',projectId,'area-detail', item.id]" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">{{item.name}}</li>
+        <li [routerLink]="['/project-detail',projectId,'area-detail', item.id]" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">{{item.name}}</li>
         }
     </ul>
 </div>
@@ -26,12 +26,12 @@
             <div class="wapper" nz-row>
                 <div nz-col [nzSpan]="16" class="wrapper__info">
                     <span>{{land.name}}</span>
-                    <span class="status">{{land.status==0?'Đang mở bán':'Sắp mở bán'}}</span>
+                    <span class="status" [class]="{'up-coming':land.status==0, 'sale': land.status==1, 'temp-lock':land.status==2, 'locked': land.status==3}">{{land.status==0?'Sắp mở bán':land.status==1?'Đang mở bán':land.status==2?'Đang đặt cọc':'Đã đặt cọc'}}</span>
                     <p class="brief">{{land.description}} | {{land.acreage}} m2</p>
                     <p class="price">Giá niêm yết: {{land.price}} tỷ</p>
-                    <button nz-button class="background-brown" (click)="showConfirm(land, area)">Đặt cọc ngay</button>
+                    <button nz-button class="background-brown" (click)="showConfirm(land, area)" [disabled]="land.status!==1">Đặt cọc ngay</button>
                 </div>
-                <div nz-col [nzSpan]="8" (click)="openLandDetailModal(land, area.name)">
+                <div nz-col [nzSpan]="8" (click)="openLandDetailModal(land, area)">
                     <img class="image" src="../../../../assets/img/flat2.jpg" alt="">
                 </div>
             </div>
@@ -41,4 +41,4 @@
 </div>
 }
 <app-payment-modal [item]="item"></app-payment-modal>
-<app-land-info-modal [item]="item"></app-land-info-modal>
+<app-land-info-modal [item]="item" (handleReload)="handleReload($event)"></app-land-info-modal>
