@@ -21,7 +21,7 @@ import { ProjectDetailComponent } from './pages/user/project-detail/project-deta
 import { TransactionHistoryComponent } from './pages/user/transaction-history/transaction-history.component';
 
 const routes: Routes = [
-  { path: '', pathMatch: 'full', redirectTo: '' },
+  { path: '', pathMatch: 'full', redirectTo: 'homepage' },
   {
     path: '',
     component: MainComponent,

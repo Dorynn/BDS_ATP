@@ -1,7 +1,7 @@
-@if(true){
-    <app-user></app-user>
+@if(role=='ADMIN'){
+    <app-admin></app-admin>
 }
 @else {
-    <app-admin></app-admin>
+    <app-user></app-user>
 }
 

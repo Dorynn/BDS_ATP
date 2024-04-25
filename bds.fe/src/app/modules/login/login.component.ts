@@ -1,6 +1,8 @@
 declare var google: any;
-import { DOCUMENT } from '@angular/common';
 import { AfterViewInit, Component, ElementRef, EventEmitter, Inject, Input, input, OnInit, Output, ViewChild } from '@angular/core';
+import { Router } from '@angular/router';
+import { NzMessageService } from 'ng-zorro-antd/message';
+import { ApiService } from '../../services/api.service';
 import { DataService } from '../../services/data.service';
 
 @Component({
@@ -18,6 +20,9 @@ export class LoginComponent implements OnInit, AfterViewInit {
 
   constructor(
     private dataService: DataService,
+    private apiService: ApiService,
+    private msg: NzMessageService,
+    private router: Router
   ) {
     this.dataService.isVisibleLoginModal.subscribe(status => this.isVisible = status)
   }
@@ -57,11 +62,30 @@ export class LoginComponent implements OnInit, AfterViewInit {
       let user = JSON.stringify(payload)
       sessionStorage.setItem("loginInf", user)
       this.checkLogin.emit(payload);
-      // this.handleCancel();
       this.isVisible = false;
+      let request = {
+        email: payload.email,
+        name: payload.name,
+      }
+      console.log(request);
+      
+      this.apiService.createUser(request).subscribe({
+        next: (res: any) => {
+          this.msg.success('Đăng nhập thành công!')
+          sessionStorage.setItem("user", JSON.stringify(res.data)); 
+          if(res.data.phone == null){
+            this.dataService.changeStatusVerifyPhoneNumberModal(true);
+          }
+          if(res.data.role.name === 'ADMIN'){
+            this.router.navigateByUrl("/user")
+            this.dataService.setRole('ADMIN')
+          }
+        }
+      })
     }
 
   }
+
 
   handleCancel(): void {
     console.log('cancel');

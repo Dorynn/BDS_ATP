@@ -120,4 +120,16 @@ export class ApiService {
   getTransactionOfUser(params: any):Observable<any>{
     return this.http.get(`${baseUrl}/transactions/withUser`, {params: params})
   }
+
+  createUser(request: any):Observable<any> {
+    return this.http.post(`${baseUrl}/users/login_user`,request)
+  }
+
+  getOtp(request: any):Observable<any>{
+    return this.http.post(`${baseUrl}/otp/send-otp`, request)
+  }
+
+  verifyOtp(formData: any):Observable<any>{
+    return this.http.post(`${baseUrl}/otp/validate`,formData)
+  }
 }

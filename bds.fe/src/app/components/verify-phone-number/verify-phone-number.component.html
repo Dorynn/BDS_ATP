@@ -1,4 +1,4 @@
-<nz-modal [(nzVisible)]="isVisible" >
+<nz-modal [(nzVisible)]="isVisible" (onCancel)="onCancel()">
     <ng-container *nzModalTitle>
         <h2 class="title">Xác thực tài khoản</h2>
     </ng-container>
@@ -21,8 +21,8 @@
     </ng-container>
     <ng-container *nzModalFooter>
         <div class="modal__footer">
-            <button nz-button class="get-code-btn">Lấy mã</button>
-            <button nz-button class="get-code-btn">Xác thực</button>
+            <button nz-button class="get-code-btn" (click)="getOtp()">Lấy mã</button>
+            <button nz-button class="get-code-btn" (click)="verifyOtp()">Xác thực</button>
             <button nz-button  class="resend-code-btn">Gửi lại mã</button>
         </div>
     </ng-container>

@@ -48,17 +48,23 @@ export class PaymentModalComponent implements OnInit {
   }
 
   handleTransaction(): void {
-    let request = {
-      userId: '67cc8239-014c-11ef-901f-507b9dcb621a',
-      landId: this.item.id
-    }
-    console.log(request)
-    this.apiService.createTransaction(request).subscribe({
-      next: (res: any) => {
-        this.msg.success(`Bạn đã thực hiện đặt cọc thành công!`)
-        this.onCancel();
+    let user = sessionStorage.getItem("user")
+    console.log(user);
+    
+    if(user){
+      let parseUser = JSON.parse(user)
+      let request = {
+        userId: parseUser.id,
+        landId: this.item.id
       }
-    })
+      console.log(request)
+      this.apiService.createTransaction(request).subscribe({
+        next: (res: any) => {
+          this.msg.success(`Bạn đã thực hiện đặt cọc thành công!`)
+          this.onCancel();
+        }
+      })
+    }
   }
 
   showConfirmCancel(): void {

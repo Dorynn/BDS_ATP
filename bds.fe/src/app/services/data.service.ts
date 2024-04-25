@@ -11,12 +11,14 @@ export class DataService {
   private statusLandDetailModal = new BehaviorSubject(false);
   private statusPaymentModal = new BehaviorSubject(false);
   private statusVerifyPhoneNumber = new BehaviorSubject(false);
+  private roleUser = new BehaviorSubject('USER');
   isVisibleLoginModal = this.statusLoginModal.asObservable();
   isVisibleRegisterModal = this.statusRegisterModal.asObservable();
   isVisibleRegisterModalStep2 = this.statusRegisterModalStep2.asObservable()
   isVisibleLandDetailModal = this.statusLandDetailModal.asObservable();
   isVisiblePaymentModal = this.statusPaymentModal.asObservable()
   isVisibleVerifyPhoneNumber = this.statusVerifyPhoneNumber.asObservable();
+  isUser = this.roleUser.asObservable();
 
   constructor() { }
 
@@ -42,6 +44,10 @@ export class DataService {
 
   changeStatusVerifyPhoneNumberModal (status: boolean) {
     this.statusVerifyPhoneNumber.next(status)
+  }
+
+  setRole(role: string){
+    this.roleUser.next(role);
   }
 
 }

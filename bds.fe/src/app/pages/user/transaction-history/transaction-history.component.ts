@@ -8,18 +8,32 @@ import { ApiService } from '../../../services/api.service';
 })
 export class TransactionHistoryComponent implements OnInit {
   transactionList: any = [];
+  user!:any;
   tabs = [{status: 0, label:'Chờ xác nhận'}, {status:1, label:'Thanh toán thành công'}, {status:2, label:'Thanh toán thất bại'}];
   constructor(
     private apiService: ApiService
   ){}
 
   ngOnInit(): void {
-    this.getTransactionOfUser(0)
+    console.log('transaction');
+    let stringUser = sessionStorage.getItem("user");
+    if(stringUser){
+      this.getTransactionOfUser(0);
+      console.log(stringUser);
+      
+      let user = JSON.parse(stringUser);
+      this.user = user;
+      console.log(user);
+      
+    }
+    
   }
 
   getTransactionOfUser(status: number){
+    console.log(this.user);
+    
     let params = {
-      id: '67cc8239-014c-11ef-901f-507b9dcb621a',
+      id: this.user?.id,
       status: status
     }
     this.apiService.getTransactionOfUser(params).subscribe({
