@@ -67,7 +67,6 @@ export class LoginComponent implements OnInit, AfterViewInit {
         email: payload.email,
         name: payload.name,
       }
-      console.log(request);
       
       this.apiService.createUser(request).subscribe({
         next: (res: any) => {

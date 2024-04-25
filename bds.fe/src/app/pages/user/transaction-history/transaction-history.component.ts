@@ -18,12 +18,12 @@ export class TransactionHistoryComponent implements OnInit {
     console.log('transaction');
     let stringUser = sessionStorage.getItem("user");
     if(stringUser){
-      this.getTransactionOfUser(0);
       console.log(stringUser);
       
       let user = JSON.parse(stringUser);
       this.user = user;
       console.log(user);
+      this.getTransactionOfUser(0);
       
     }
     
@@ -31,16 +31,17 @@ export class TransactionHistoryComponent implements OnInit {
 
   getTransactionOfUser(status: number){
     console.log(this.user);
-    
-    let params = {
-      id: this.user?.id,
-      status: status
+    if(this.user){
+      let params = {
+        id: this.user?.id,
+        status: status
+      }
+      this.apiService.getTransactionOfUser(params).subscribe({
+        next: (res:any) => {
+          this.transactionList = res.data;
+        } 
+      })
     }
-    this.apiService.getTransactionOfUser(params).subscribe({
-      next: (res:any) => {
-        this.transactionList = res.data;
-      } 
-    })
   }
 
   changeTab(event: any) {

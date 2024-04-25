@@ -4,7 +4,7 @@
             <h3>{{projectDetail.name}}</h3>
             <p>{{projectDetail.description}}</p>
         </div>
-        <div class="project-image" nz-col [nzSpan]="12"></div>
+        <div class="project-image" [style.backgroundImage]="projectDetail.thumbnail" nz-col [nzSpan]="12"></div>
     </div>
 </div>
 <div class="menu">
@@ -19,7 +19,7 @@
 @for(area of areaList; track area.id){
 <div class="area-group">
     <h1>{{area.name}}</h1>
-    <swiper-container loop="true" slides-per-view="2" mousewheel-force-to-axis="true" space-between="15"
+    <swiper-container loop="true" slides-per-view="1" space-between="10"
         navigation="true" pagination="true" style="--swiper-navigation-color: #fff; --swiper-pagination-color: #6D31ED">
         @for(land of area.lands; track land){
         <swiper-slide class="swiper-slide">
@@ -40,5 +40,5 @@
     </swiper-container>
 </div>
 }
-<app-payment-modal [item]="item"></app-payment-modal>
-<app-land-info-modal [item]="item" (handleReload)="handleReload($event)"></app-land-info-modal>
+<app-payment-modal [item]="item" (handleReload)="handleReload($event)"></app-payment-modal>
+<app-land-info-modal [item]="item" ></app-land-info-modal>

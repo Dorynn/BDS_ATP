@@ -33,5 +33,7 @@
 @if (isOpenLogin) {
 <app-login (statusChange)="closeLogin()" (checkLogin)="checkLogin($event)"></app-login>
 }
-<app-register></app-register>
+@if (isOpenRegister){
+    <app-register></app-register>
+}
 <app-verify-phone-number></app-verify-phone-number>

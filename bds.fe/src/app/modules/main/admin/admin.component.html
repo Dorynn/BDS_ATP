@@ -14,7 +14,7 @@
     <nz-dropdown-menu #menu="nzDropdownMenu">
       <ul nz-menu>
         <li nz-menu-item><span nz-icon nzType="user" nzTheme="outline"></span> Trang cá nhân</li>
-        <li nz-menu-item><span nz-icon nzType="logout" nzTheme="outline"></span> Đăng xuất</li>
+        <li nz-menu-item (click)="logout()"><span nz-icon nzType="logout" nzTheme="outline"></span> Đăng xuất</li>
       </ul>
     </nz-dropdown-menu>
   </nz-header>

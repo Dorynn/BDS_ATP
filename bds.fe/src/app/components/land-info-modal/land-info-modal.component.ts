@@ -47,7 +47,6 @@ export class LandInfoModalComponent implements OnInit{
     })
   }
 
-
   handleCancel() {
     this.isVisible = false;
     this.dataService.changeStatusLandDetailModal(false);

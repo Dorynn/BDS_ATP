@@ -18,6 +18,7 @@ export class AreaDetailComponent implements OnInit {
   areaDetail: any = [];
   item: any = [];
   stompClient: any;
+  user: any = {}
 
   constructor(
     private apiService: ApiService,
@@ -102,42 +103,54 @@ export class AreaDetailComponent implements OnInit {
   }
 
   showConfirm(item: any): void {
-    this.item = {
-      ...item,
-      projectName: this.projectDetail.name,
-      projectId: this.projectDetail.id,
-      areaName: this.areaDetail.name,
-      areaId: this.areaDetail.id,
-      expiryDate: this.areaDetail.expiryDate,
-      investor: this.projectDetail.investor,
-      price: item.price,
-      deposit: item.deposit,
-      description: item.description,
-      acreage: item.acreage,
-      hostBank: this.projectDetail.hostBank,
-      bankName: this.projectDetail.bankName,
-      bankNumber: this.projectDetail.bankNumber,
-      qr: `https://qr.sepay.vn/img?acc=${this.projectDetail.bankNumber}&bank=${this.projectDetail.bankName}&amount=${item.deposit * 100}&des=013+${item.name}`
-
-    };
-    this.modalService.confirm({
-      nzTitle: 'Xác nhận đặt cọc',
-      nzContent: 'Bạn có chắc muốn đặt cọc bất động sản này, sau khi ấn đồng ý, bất động sản sẽ được tạm khóa để bạn tiến hành quá trình thanh toán. Vui lòng cân nhắc kỹ !',
-      nzOkText: 'Đồng ý',
-      nzCancelText: 'Hủy',
-      nzOnOk: () => {
-        console.log('confirm');
-
-        this.openPaymentModal();
-        this.handleChangeLandStatus('2', item.id)
-        localStorage.setItem('isPaymentOpen',JSON.stringify(true))
-        localStorage.setItem('item', JSON.stringify(this.item))
-      },
-      nzOnCancel: () => {
-
+    let user = sessionStorage.getItem("user");
+    console.log(user);
+    
+    if(user != null){
+      this.user = JSON.parse(user);
+      if (this.user.isDeleted == 1){
+        this.item = {
+          ...item,
+          projectName: this.projectDetail.name,
+          projectId: this.projectDetail.id,
+          areaName: this.areaDetail.name,
+          areaId: this.areaDetail.id,
+          expiryDate: this.areaDetail.expiryDate,
+          investor: this.projectDetail.investor,
+          price: item.price,
+          deposit: item.deposit,
+          description: item.description,
+          acreage: item.acreage,
+          hostBank: this.projectDetail.hostBank,
+          bankName: this.projectDetail.bankName,
+          bankNumber: this.projectDetail.bankNumber,
+          qr: `https://qr.sepay.vn/img?acc=${this.projectDetail.bankNumber}&bank=${this.projectDetail.bankName}&amount=${item.deposit * 100}&des=013+${item.name}`
+    
+        };
+        this.modalService.confirm({
+          nzTitle: 'Xác nhận đặt cọc',
+          nzContent: 'Bạn có chắc muốn đặt cọc bất động sản này, sau khi ấn đồng ý, bất động sản sẽ được tạm khóa để bạn tiến hành quá trình thanh toán. Vui lòng cân nhắc kỹ !',
+          nzOkText: 'Đồng ý',
+          nzCancelText: 'Hủy',
+          nzOnOk: () => {
+            console.log('confirm');
+    
+            this.openPaymentModal();
+            this.handleChangeLandStatus('2', item.id)
+            localStorage.setItem('isPaymentOpen',JSON.stringify(true))
+            localStorage.setItem('item', JSON.stringify(this.item))
+          },
+          nzOnCancel: () => {
+    
+          }
+    
+        })
+      }else {
+        this.dataService.changeStatusVerifyPhoneNumberModal(true);
       }
-
-    })
+    }else{
+      this.dataService.changeStatusLoginModal(true);
+    }
   }
 
   openPaymentModal(): void {

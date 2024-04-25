@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { authGuard, AuthGuard, childGuard } from './guards/auth.guard';
 import { AdminComponent } from './modules/main/admin/admin.component';
 import { MainComponent } from './modules/main/main.component';
 import { UserComponent } from './modules/main/user/user.component';
@@ -21,10 +22,18 @@ import { ProjectDetailComponent } from './pages/user/project-detail/project-deta
 import { TransactionHistoryComponent } from './pages/user/transaction-history/transaction-history.component';
 
 const routes: Routes = [
-  { path: '', pathMatch: 'full', redirectTo: 'homepage' },
+  // { path: '', pathMatch: 'full', redirectTo: '' },
+  // {
+  //   path: '',
+  //   component: MainComponent,
+  //   // canActivate: [AuthGuard],
+
+  // },
   {
     path: '',
     component: MainComponent,
+    // canActivate: [authGuard],
+    // canActivateChild: [childGuard],
     children: [
       {
         path: '',
@@ -42,11 +51,6 @@ const routes: Routes = [
             component: AreaDetailComponent
           },
           
-        ]
-      },
-      {
-        path: '',
-        children: [
           {
             path: 'add-project',
             component: AddProjectComponent

@@ -12,6 +12,7 @@ import { DataService } from '../../../../services/data.service';
 })
 export class HeaderComponent implements OnInit {
   isOpenLogin: boolean = false;
+  isOpenRegister:boolean = false;
   isLogin: boolean = false;
   user: any;
   constructor(
@@ -26,6 +27,8 @@ export class HeaderComponent implements OnInit {
       this.isLogin = true;
       this.user = JSON.parse(user)
     }
+    this.dataService.isVisibleLoginModal.subscribe(status => this.isOpenLogin = status);
+    this.dataService.isVisibleRegisterModal.subscribe(status=>this.isOpenRegister = status);
   }
 
   closeLogin() {

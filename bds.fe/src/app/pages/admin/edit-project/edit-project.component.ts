@@ -1,9 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { NzMessageService } from 'ng-zorro-antd/message';
-import { threadId } from 'worker_threads';
+import { NzUploadFile } from 'ng-zorro-antd/upload';
 import { ApiService } from '../../../services/api.service';
 
+const getBase64 = (file: File): Promise<string | ArrayBuffer | null> =>
+  new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = () => resolve(reader.result);
+    reader.onerror = error => reject(error);
+  });
 @Component({
   selector: 'app-edit-project',
   templateUrl: './edit-project.component.html',
@@ -13,7 +20,13 @@ export class EditProjectComponent implements OnInit {
   name!: string;
   type!: string;
   status!: string;
-  thumbnail!: File;
+  thumbnail: NzUploadFile[] = [
+    {
+      uid: '-1',
+      name: 'image.png',
+      url: 'https://storage.googleapis.com/vinhomes-data-02/styles/images_870_x_530/public/2023_07/gDEHQfH0_1689751750.jpeg?itok=R6lbOml4'
+    }
+  ];
   description!: string;
   district!: string;
   address!: string;
@@ -21,7 +34,13 @@ export class EditProjectComponent implements OnInit {
   bankHost!: string;
   bankNumber!: string;
   bankName!: string;
-  qrImage!: File;
+  qrImage: NzUploadFile[]=[
+    {
+      uid: '-1',
+      name: 'image.png',
+      url: 'https://res.cloudinary.com/dh2jzuhav/image/upload/v1714054752/ATP_BDS/cfqicbiqfapaovdnb9jr.jpg'
+    }
+  ];
   investorPhoneNumber!: string;
   startDate!: Date;
   endDate!: Date;
@@ -31,13 +50,16 @@ export class EditProjectComponent implements OnInit {
   districtList: any = [];
   projectId: string | null = this.route.snapshot.paramMap.get('id');
   projectDetail: any = [];
+  previewVisible: boolean = false;
+  previewImage: string | undefined = '';
   isChangeThumbnail: boolean = false;
   isChangeQrImg: boolean = false;
+  loading:boolean = true;
 
   constructor(
     private apiService: ApiService,
     private route: ActivatedRoute,
-    private msg: NzMessageService
+    private msg: NzMessageService,
   ){}
 
   ngOnInit(): void {
@@ -65,9 +87,11 @@ export class EditProjectComponent implements OnInit {
         this.status = res.data.status;
         this.endDate = new Date(res.data.endDate);
         this.startDate = new Date(res.data.startDate);
-        this.thumbnail = res.data.thumbnail;
-        this.qrImage = res.data.qrImg;
+        this.thumbnail[0].url = res.data.thumbnail;
+        this.qrImage[0].url = res.data.qrImg;
         this.getDistrictByProvince();
+        console.log(this.district);
+        
       }
     })
   }  
@@ -89,11 +113,11 @@ export class EditProjectComponent implements OnInit {
     formData.append("investorPhone", this.investorPhoneNumber)
     formData.append("projectTypeId", this.type)
     formData.append("districtId", this.district)
+    formData.append("thumbnail", this.thumbnail[0].originFileObj!)
+    formData.append("qrImg", this.qrImage[0].originFileObj!)
     if (this.isChangeThumbnail) {
-      formData.append("thumbnail", this.thumbnail)
     }
     if (this.isChangeQrImg){
-      formData.append("qrImg", this.qrImage)
     }
 
     this.apiService.updateProject(formData).subscribe({
@@ -136,4 +160,28 @@ export class EditProjectComponent implements OnInit {
   onChangeProvince() {
     this.getDistrictByProvince();
   }
+
+  handlePreview = async (file: NzUploadFile): Promise<void> => {
+    if (!file.url && !file['preview']) {
+      file['preview'] = await getBase64(file.originFileObj!);
+    }
+    this.previewImage = file.url || file['preview'];
+    this.previewVisible = true;
+  }
+
+  handleChange(info: { file: NzUploadFile }): void {
+    switch (info.file.status) {
+      case 'uploading':
+        this.loading = true;
+        break;
+      case 'done':
+        this.handlePreview(info.file);
+        this.loading = false;
+        break;
+      case 'error':
+        this.loading = false;
+        break;
+    }
+  }
 }
+

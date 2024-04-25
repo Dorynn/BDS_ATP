@@ -11,7 +11,8 @@ export class AppService {
 
   signOut(){
     google.accounts.id.disableAutoSelect();
-    sessionStorage.removeItem("loginInf")
+    sessionStorage.removeItem("loginInf");
+    sessionStorage.removeItem("user");
     // this.router.navigate(['/']);
   }
 }
