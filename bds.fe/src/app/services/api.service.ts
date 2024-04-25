@@ -105,11 +105,19 @@ export class ApiService {
     return this.http.put(`${baseUrl}/transactions/confirmTransactionSuccessOrFail`,request);
   }
 
-  getTransactionById(id: string | null) {
+  getTransactionById(id: string | null):Observable<any> {
     return this.http.get(`${baseUrl}/transactions/${id}`);
   }
 
-  getUserList(params:any){
+  getUserList(params:any):Observable<any>{
     return this.http.get(`${baseUrl}/users`, {params: params})
+  }
+
+  createTransaction(request:any):Observable<any>{
+    return this.http.post(`${baseUrl}/transactions`, request)
+  }
+
+  getTransactionOfUser(params: any):Observable<any>{
+    return this.http.get(`${baseUrl}/transactions/withUser`, {params: params})
   }
 }

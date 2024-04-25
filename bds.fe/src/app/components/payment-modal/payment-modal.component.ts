@@ -1,6 +1,8 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { CountdownEvent } from 'ngx-countdown';
+import { ApiService } from '../../services/api.service';
 import { DataService } from '../../services/data.service';
 
 @Component({
@@ -16,6 +18,8 @@ export class PaymentModalComponent implements OnInit {
   constructor(
     private dataService: DataService,
     private modalService: NzModalService,
+    private apiService: ApiService,
+    private msg: NzMessageService
   ) {
   }
 
@@ -44,7 +48,17 @@ export class PaymentModalComponent implements OnInit {
   }
 
   handleTransaction(): void {
-
+    let request = {
+      userId: '67cc8239-014c-11ef-901f-507b9dcb621a',
+      landId: this.item.id
+    }
+    console.log(request)
+    this.apiService.createTransaction(request).subscribe({
+      next: (res: any) => {
+        this.msg.success(`Bạn đã thực hiện đặt cọc thành công!`)
+        this.onCancel();
+      }
+    })
   }
 
   showConfirmCancel(): void {
@@ -54,6 +68,7 @@ export class PaymentModalComponent implements OnInit {
       nzOkText: 'Đồng ý',
       nzCancelText: 'Hủy',
       nzOnOk: () => {
+        this.msg.success("Hủy đặt cọc thành công!")
         this.onCancel()
         this.handleReload.emit({isCancel: true, itemId: this.item.id})
         localStorage.setItem('isPaymentOpen', JSON.stringify(false));
