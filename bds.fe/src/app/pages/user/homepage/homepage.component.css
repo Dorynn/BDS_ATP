@@ -33,6 +33,11 @@ nz-carousel [nz-row]{
     margin-top: 50px;
 }
 
+.project-info .desc {
+    max-height: 200px;
+    overflow: hidden;
+}
+
 .project-info > button {
     padding-left: 0;
     color: #f78e10;

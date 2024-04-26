@@ -18,8 +18,10 @@
     <nz-dropdown-menu #menu="nzDropdownMenu">
         <ul nz-menu>
             <li nz-menu-item><span nz-icon nzType="user" nzTheme="outline"></span> Trang cá nhân</li>
-            <li nz-menu-item (click)="goToTransaction()"><span nz-icon nzType="bar-chart" nzTheme="outline"></span> Lịch sử giao dịch</li>
-            <li nz-menu-item (click)="handleLogout()"><span nz-icon nzType="logout" nzTheme="outline"></span> Đăng xuất</li>
+            <li nz-menu-item (click)="goToTransaction()"><span nz-icon nzType="bar-chart" nzTheme="outline"></span> Lịch
+                sử giao dịch</li>
+            <li nz-menu-item (click)="handleLogout()"><span nz-icon nzType="logout" nzTheme="outline"></span> Đăng xuất
+            </li>
         </ul>
     </nz-dropdown-menu>
     }@else {
@@ -34,6 +36,6 @@
 <app-login (statusChange)="closeLogin()" (checkLogin)="checkLogin($event)"></app-login>
 }
 @if (isOpenRegister){
-    <app-register (checkLogin)="checkLogin($event)"></app-register>
+<app-register (checkLogin)="checkLogin($event)"></app-register>
 }
 <app-verify-phone-number></app-verify-phone-number>
