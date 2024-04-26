@@ -51,7 +51,11 @@ export class ProjectDetailComponent implements OnInit {
     this.connectSocket();
     this.getProjectDetail();
     let isPaymentOpen = localStorage.getItem("isPaymentOpen");
-    let item = localStorage.getItem("item")
+    let item = localStorage.getItem("item");
+    let user = sessionStorage.getItem("user");
+    if(user){
+      this.user = JSON.parse(user);
+    }
     if (isPaymentOpen === 'true') {
       if (item) {
         this.item = JSON.parse(item)
@@ -90,7 +94,8 @@ export class ProjectDetailComponent implements OnInit {
           hostBank: this.projectDetail.hostBank,
           bankName: this.projectDetail.bankName,
           bankNumber: this.projectDetail.bankNumber,
-          qr: `https://qr.sepay.vn/img?acc=${this.projectDetail.bankNumber}&bank=${this.projectDetail.bankName}&amount=${item.deposit * 100}&des=013+${item.name}`
+          phone: this.user.phone,
+          qr: `https://qr.sepay.vn/img?acc=${this.projectDetail.bankNumber}&bank=${this.projectDetail.bankName}&amount=${item.deposit * 100}&des=${this.user.phone}+${item.name}`
         };
         this.modalService.confirm({
           nzTitle: 'Xác nhận đặt cọc',
@@ -154,7 +159,8 @@ export class ProjectDetailComponent implements OnInit {
       hostBank: this.projectDetail.hostBank,
       bankName: this.projectDetail.bankName,
       bankNumber: this.projectDetail.bankNumber,
-      qr: `https://qr.sepay.vn/img?acc=${this.projectDetail.bankNumber}&bank=${this.projectDetail.bankName}&amount=${item.deposit * 100}&des=013+${item.name}`
+      phone: this.user.phone,
+      qr: `https://qr.sepay.vn/img?acc=${this.projectDetail.bankNumber}&bank=${this.projectDetail.bankName}&amount=${item.deposit * 100}&des=${this.user.phone}+${item.name}`
     };
     this.dataService.changeStatusLandDetailModal(true);
   }

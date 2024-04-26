@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NzUploadFile } from 'ng-zorro-antd/upload';
 import { NzMessageService } from 'ng-zorro-antd/message'
 import { ApiService } from '../../../services/api.service';
+import { DataService } from '../../../services/data.service';
 
 const getBase64 = (file: File): Promise<string | ArrayBuffer | null> =>
   new Promise((resolve, reject) => {
@@ -39,6 +40,7 @@ export class AddLandComponent implements OnInit {
   constructor(
     private msg: NzMessageService,
     private apiService: ApiService,
+    private dataService: DataService
   ) { }
 
   ngOnInit(): void {
@@ -93,6 +95,7 @@ export class AddLandComponent implements OnInit {
   }
 
   handleAddLand() {
+    this.dataService.changeStatusLoadingAdmin(true);
     let formData = new FormData();
     formData.append("name", this.name);
     formData.append("description", this.description);
@@ -105,7 +108,7 @@ export class AddLandComponent implements OnInit {
     formData.append("areaId", this.areaId)
     this.apiService.createLand(formData).subscribe({
       next: (res: any) => {
-        this.msg.success('Tạo mới khu đất thành công!')
+        this.msg.success('Thêm mới khu đất thành công!')
         this.name = '';
         this.description = '';
         this.thumbnail = [];
@@ -117,8 +120,10 @@ export class AddLandComponent implements OnInit {
         this.areaId = '';
         this.isProjectChange = false;
         this.projectId = ''
+        this.dataService.changeStatusLoadingAdmin(false);
       },
       error:(err: any) => {
+        this.dataService.changeStatusLoadingAdmin(false);
         this.msg.error(`Tạo mới khu đất thất bại, lỗi ${err}`)
       }
     })

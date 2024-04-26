@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzUploadFile } from 'ng-zorro-antd/upload';
 import { ApiService } from '../../../services/api.service';
+import { DataService } from '../../../services/data.service';
 
 const getBase64 = (file: File): Promise<string | ArrayBuffer | null> =>
   new Promise((resolve, reject) => {
@@ -60,6 +61,7 @@ export class EditProjectComponent implements OnInit {
     private apiService: ApiService,
     private route: ActivatedRoute,
     private msg: NzMessageService,
+    private dataService: DataService
   ){}
 
   ngOnInit(): void {
@@ -97,6 +99,7 @@ export class EditProjectComponent implements OnInit {
   }  
 
   editProject(){
+  this.dataService.changeStatusLoadingAdmin(true);
     const formData = new FormData();
     let id: string = String(this.projectId);
     formData.append("id", id)
@@ -122,10 +125,12 @@ export class EditProjectComponent implements OnInit {
 
     this.apiService.updateProject(formData).subscribe({
       next: (res: any) => {
-        this.msg.success("Cập nhật dự án thành công!")
+        this.msg.success("Cập nhật dự án thành công!");
+        this.dataService.changeStatusLoadingAdmin(false);
       },
       error: (err:any) => {
         this.msg.error("Cập nhật giao dịch thất bại")
+        this.dataService.changeStatusLoadingAdmin(false);
       }
     })
   }

@@ -23,9 +23,16 @@
 <div class="content">
     <div class="content-wrapper">
         <div class="filter" nz-flex nzJustify="end">
-            <nz-select></nz-select>
-            <nz-select></nz-select>
-            <nz-select></nz-select>
+            <nz-select>
+                <nz-option [nzValue]="0" nzLabel="Giá thấp đến cao"></nz-option>
+                <nz-option [nzValue]="1" nzLabel="Giá cao đến thấp"></nz-option>
+            </nz-select>
+            <nz-select>
+                <nz-option [nzValue]="0" nzLabel="Sắp mở bán"></nz-option>
+                <nz-option [nzValue]="1" nzLabel="Đang mở bán"></nz-option>
+                <nz-option [nzValue]="2" nzLabel="Đang đặt cọc"></nz-option>
+                <nz-option [nzValue]="3" nzLabel="Đã đặt cọc"></nz-option>
+            </nz-select>
             <nz-select></nz-select>
             <button nz-button class="background-brown">Lọc</button>
             <button nz-button class="background-brown">Xóa</button>
@@ -45,7 +52,7 @@
                             <button nz-button class="background-brown" (click)="showConfirm(item)" [disabled]="item.status!==1">Đặt cọc ngay</button>
                         </div>
                         <div nz-col [nzSpan]="8" (click)="openLandDetailModal(item)">
-                            <img class="image" src="../../../../assets/img/flat2.jpg" alt="" height="100%" width="100%">
+                            <img class="image" [src]="item.thumbnail??'../../../../assets/img/flat2.jpg'" alt="" height="100%" width="100%">
                         </div>
                     </div>
                 </div>

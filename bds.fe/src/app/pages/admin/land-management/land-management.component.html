@@ -3,7 +3,7 @@
 <div nz-row [nzJustify]="'space-between'" class="filter-box">
     <div class="search-box" nz-col [nzSpan]="6">
         <nz-input-group nzSearch [nzAddOnBefore]="prefixButton">
-            <input [(ngModel)]="name" type="text" nz-input placeholder="">
+            <input [(ngModel)]="requestParams.name" type="text" nz-input placeholder="" (keyup.enter)="handleSearch()">
         </nz-input-group>
         <ng-template #prefixButton>
             Tìm kiếm
@@ -12,7 +12,7 @@
     <div nz-col [nzSpan]="6">
         <div nz-row>
             <span nz-col [nzSpan]="6" class="prefix-select">Dự án</span>
-            <nz-select [(ngModel)]="requestParams.projectId" nz-col [nzSpan]="18">
+            <nz-select [(ngModel)]="requestParams.projectId" nz-search nz-col [nzSpan]="18"(ngModelChange)="searchByProject()" [nzAllowClear]="true">
                 @for (item of projectList; track $index) {
                     <nz-option [nzValue]="item.id" [nzLabel]="item.name"></nz-option>
                 }
@@ -22,7 +22,7 @@
     <div nz-col [nzSpan]="6">
         <div nz-row>
             <span nz-col [nzSpan]="8" class="prefix-select">Phân khu</span>
-            <nz-select [(ngModel)]="requestParams.areaId" nz-col [nzSpan]="16">
+            <nz-select [(ngModel)]="requestParams.areaId" nz-col nz-search [nzSpan]="16" (ngModelChange)="searchByArea()" [nzAllowClear]="true">
                 @for (item of areaList; track $index) {
                     <nz-option [nzValue]="item.id" [nzLabel]="item.name"></nz-option>
                 }

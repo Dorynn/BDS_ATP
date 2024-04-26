@@ -3,7 +3,7 @@
 <div nz-row [nzJustify]="'space-between'">
     <div class="search-box">
         <nz-input-group nzSearch [nzAddOnBefore]="prefixButton">
-            <input type="text" nz-input placeholder="">
+            <input [(ngModel)]="search" type="text" nz-input placeholder="" (keyup.enter)="handleSearch()">
         </nz-input-group>
         <ng-template #prefixButton>
             Tìm kiếm

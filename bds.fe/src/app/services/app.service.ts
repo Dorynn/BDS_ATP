@@ -13,6 +13,6 @@ export class AppService {
     google.accounts.id.disableAutoSelect();
     sessionStorage.removeItem("loginInf");
     sessionStorage.removeItem("user");
-    // this.router.navigate(['/']);
+    this.router.navigate(['/homepage']);
   }
 }

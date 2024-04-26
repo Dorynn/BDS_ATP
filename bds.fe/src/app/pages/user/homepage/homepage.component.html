@@ -1,16 +1,17 @@
-<nz-carousel nzAutoPlay [nzAutoPlaySpeed]="5000">
+<nz-carousel>
     @for (item of projectList; track item) {
-    <div nz-carousel-content >
+    <div nz-carousel-content>
         <div nz-row nzAlign="middle">
             <div nz-col [nzSpan]="6" class="project-info">
-                <!-- <div class="title">{{item.title}}</div> -->
                 <div class="project-name">{{item.name}}</div>
-                <p class="desc">{{item.description}} Lorem ipsum dolor sit amet consectetur adipisicing elit. Sunt quia sint beatae consequatur vitae consectetur quam mollitia, doloribus ex alias!</p>
-                <button nz-button nzType="text" (click)="goToProjectDetail(item.id)">Khám phá dự án<span nz-icon nzType="right"
-                        nzTheme="outline"></span></button>
+                <p class="desc">{{item.description}} Lorem ipsum dolor sit amet consectetur adipisicing elit. Sunt quia
+                    sint beatae consequatur vitae consectetur quam mollitia, doloribus ex alias!</p>
+                <button nz-button nzType="text" (click)="goToProjectDetail(item.id)">Khám phá dự án<span nz-icon
+                        nzType="right" nzTheme="outline"></span></button>
             </div>
             <div nz-col [nzSpan]="18">
-                <img [src]="item.thumbnail? item.thumbnail:'https://storage.googleapis.com/vinhomes-data-02/styles/images_1520_x_680/public/2021_06/3_1624089856.jpg?itok=3lwZzTfH'" alt="" width="100%">
+                <img [src]="item.thumbnail? item.thumbnail:'https://storage.googleapis.com/vinhomes-data-02/styles/images_1520_x_680/public/2021_06/3_1624089856.jpg?itok=3lwZzTfH'"
+                    alt="" width="100%" height="100%">
             </div>
         </div>
     </div>
@@ -20,43 +21,34 @@
 <div nz-row>
     <div nz-col [nzSpan]="6">
         <div class="filter">
-            <p>Filters</p>
+            <p>Lọc</p>
             <div>
-                <p>Giá tiền</p>
-                <div nz-flex nzJustify="space-between">
-                    <nz-input-number
-                    [(ngModel)]="rangeMoney[0]"
-                    [nzMin]="1"
-                    [nzMax]="100"
-                    [nzStep]="1"
-                    [nzFormatter]="formatterDollar"
-                    [nzParser]="parserDollar"
-                    [nzReadOnly]="true"
-                  ></nz-input-number>
-                    <nz-input-number
-                    [(ngModel)]="rangeMoney[1]"
-                    [nzMin]="1"
-                    [nzMax]="100"
-                    [nzStep]="1"
-                    [nzFormatter]="formatterDollar"
-                    [nzParser]="parserDollar"
-                    [nzReadOnly]="true"
-                  ></nz-input-number>
-                </div>
-                <nz-slider nzRange [(ngModel)]="rangeMoney"></nz-slider>
+                <p>Loại</p>
+                <nz-select [(ngModel)]="projectType">
+                    <nz-option [nzValue]="1" nzLabel="Chung cư"></nz-option>
+                    <nz-option [nzValue]="2" nzLabel="Đất nền"></nz-option>
+                </nz-select>
             </div>
             <div>
                 <p>Khu vực</p>
-                <nz-select [ngModel]="1">
-                    <nz-option [nzValue]="1" nzLabel="Hà Đông"></nz-option>
-                    <nz-option [nzValue]="2" nzLabel="Hòa Lạc"></nz-option>
-                    <nz-option [nzValue]="1" nzLabel="Nam Từ Liêm"></nz-option>
+                <nz-select [(ngModel)]="provinceId">
+                    @for (item of provinceList; track $index) {
+                        <nz-option [nzValue]="item.id" [nzLabel]="item.name"></nz-option>
+                    }
+                </nz-select>
+            </div>
+            <div>
+                <p>Trạng thái</p>
+                <nz-select [(ngModel)]="status">
+                    <nz-option [nzValue]="0" nzLabel="Sắp mở bán"></nz-option>
+                    <nz-option [nzValue]="1" nzLabel="Đang mở bán"></nz-option>
+                    <nz-option [nzValue]="2" nzLabel="Đã kết thúc"></nz-option>
                 </nz-select>
             </div>
 
             <div class="button-group" nz-flex nzJustify="space-between">
-                <button nz-button>Xóa</button>
-                <button nz-button>Lọc</button>
+                <button nz-button (click)="handleClear()">Xóa</button>
+                <button nz-button (click)="handleFilter()">Lọc</button>
             </div>
         </div>
     </div>
@@ -66,19 +58,21 @@
             <nz-divider></nz-divider>
             @for(item of projectList; track $index) {
             <div class="project-detail" nz-row [nzGutter]="24">
-                <div nz-col [nzSpan]="12"><img
+                <div nz-col [nzSpan]="12" style="height: 100%"><img
                         [src]="item.thumbnail??'https://cf.bstatic.com/xdata/images/hotel/max1280x900/541778668.jpg?k=90f51fc0e7c2d79d22d888b2d0ebc2156ae9cacbd68973f4a892250e1ef5826f&o=&hp=1'"
                         alt="" width="100%" height="100%"></div>
                 <div nz-col [nzSpan]="12">
                     <h2 class="project-detail__title">{{item.name}}</h2>
-                    <p>{{item.description}} Lorem ipsum dolor sit amet consectetur adipisicing elit. Inventore sed blanditiis porro in cum aspernatur commodi ad asperiores totam voluptates.</p>
-                    <p class="text-bold">Vị trí: {{item.address}}</p>
+                    <p>{{item.description}} Lorem ipsum dolor sit amet consectetur adipisicing elit. Inventore sed
+                        blanditiis porro in cum aspernatur commodi ad asperiores totam voluptates.</p>
+                    <p class="text-bold">Vị trí: {{item.district.provinceName}}</p>
                     <p class="text-bold">Loại dự án: {{item.projectType.name}}</p>
                     <button nz-button nzShape="round" (click)="goToProjectDetail(item.id)">Xem chi tiết</button>
                 </div>
             </div>
             }
         </div>
-        <nz-pagination [nzPageIndex]="currentPage" [nzTotal]="total" [nzPageSize]="pageSize" (nzPageIndexChange)="handleChangePage($event)"></nz-pagination>
+        <nz-pagination [nzPageIndex]="currentPage" [nzTotal]="total" [nzPageSize]="pageSize"
+            (nzPageIndexChange)="handleChangePage($event)"></nz-pagination>
     </div>
 </div>

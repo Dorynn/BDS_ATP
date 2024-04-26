@@ -12,6 +12,7 @@ export class ProjectManagerComponent implements OnInit {
   total: number= 0;
   currentPage: number = 0;
   pageSize: number = 10;
+  searchProjectName: string = ''
 
   constructor(
     private apiService: ApiService,
@@ -19,11 +20,11 @@ export class ProjectManagerComponent implements OnInit {
   ) {}
 
   ngOnInit():void {
-    this.getProjectList();
+    this.getProjectList({});
   }
 
-  getProjectList() {
-    this.apiService.getProjectList({pageIndex:0, pageSize: 10}).subscribe({
+  getProjectList(params: any) {
+    this.apiService.getProjectList(params).subscribe({
       next: (res: any) => {
         this.total = res.totalRecords;
         this.currentPage = res.currentPage
@@ -47,5 +48,9 @@ export class ProjectManagerComponent implements OnInit {
 
   goToEditProject(id: string) {
     this.router.navigateByUrl(`/edit-project/${id}`)
+  }
+
+  handleSearch(){
+    this.getProjectList({nameProject: this.searchProjectName})
   }
 }

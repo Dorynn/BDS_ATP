@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { NzMessageService } from 'ng-zorro-antd/message';
 import { ApiService } from '../../../services/api.service';
+import { DataService } from '../../../services/data.service';
 
 @Component({
   selector: 'app-add-area',
@@ -14,10 +16,13 @@ export class AddAreaComponent implements OnInit{
   
   constructor(
     private apiService: ApiService,
+    private msg: NzMessageService,
+    private dataService: DataService
   ){}
 
   ngOnInit(): void {
-    this.getProjectList()
+    this.getProjectList();
+    
   }
 
   getProjectList(){
@@ -29,6 +34,7 @@ export class AddAreaComponent implements OnInit{
   }
 
   handleAddArea(){
+    this.dataService.changeStatusLoadingAdmin(true)
     let request = {
       name: this.areaName,
       projectId:this.projectId,
@@ -40,6 +46,12 @@ export class AddAreaComponent implements OnInit{
         this.areaName = '';
         this.projectId = '';
         this.timeLimit = '';
+        this.msg.success("Thêm mới phân khu thành công!")
+        this.dataService.changeStatusLoadingAdmin(false);
+      },
+      error: (err: any) => {
+        this.msg.error("Thêm mới phân khu thất bại")
+        this.dataService.changeStatusLoadingAdmin(false);
       }
     })
   }

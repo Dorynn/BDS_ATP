@@ -57,8 +57,10 @@ export class PaymentModalComponent implements OnInit {
       }
       this.apiService.createTransaction(request).subscribe({
         next: (res: any) => {
-          this.msg.success(`Bạn đã thực hiện đặt cọc thành công!`)
+          this.msg.success(`Giao dịch đã được tạo, vui lòng chờ đợi nhân viên sẽ sớm kiểm tra và liên hệ xác nhận. Quý khách có thể theo dõi trạng thái trong phần lịch sử giao dịch!`)
           this.onCancel();
+          localStorage.removeItem("isPaymentOpen")
+          localStorage.removeItem("item")
         }
       })
     }

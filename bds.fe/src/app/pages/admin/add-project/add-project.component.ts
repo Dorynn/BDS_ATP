@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzUploadFile } from 'ng-zorro-antd/upload';
 import { ApiService } from '../../../services/api.service';
+import { DataService } from '../../../services/data.service';
 import { SocketService } from '../../../services/socket.service';
 
 const getBase64 = (file: File): Promise<string | ArrayBuffer | null> =>
@@ -46,7 +47,8 @@ export class AddProjectComponent implements OnInit {
   constructor(
     private apiService: ApiService,
     private socketService: SocketService,
-    private msg: NzMessageService
+    private msg: NzMessageService,
+    private dataService: DataService
   ) {
     this.stompClient = this.socketService.connect();
     this.stompClient.connect({}, (frame: any) => {
@@ -64,7 +66,7 @@ export class AddProjectComponent implements OnInit {
 
   onFileSelected(event: any) {
     console.log(event);
-    
+
     this.thumbnail = event.target.files?.[0]
     console.log(this.thumbnail);
   }
@@ -76,6 +78,7 @@ export class AddProjectComponent implements OnInit {
   }
 
   addProject() {
+    this.dataService.changeStatusLoadingAdmin(true)
     const formData = new FormData();
     formData.append("name", this.name)
     formData.append("description", this.description)
@@ -94,7 +97,7 @@ export class AddProjectComponent implements OnInit {
     formData.append("districtId", this.district)
 
     console.log(this.thumbnail);
-    
+
 
     this.apiService.addProject(formData).subscribe({
       next: (res: any) => {
@@ -110,10 +113,18 @@ export class AddProjectComponent implements OnInit {
         this.bankNumber = '';
         this.bankName = '';
         this.investorPhoneNumber = '';
+        this.fileImage = [];
+        this.fileQr = [];
         this.provinceId = '';
         this.startDate = new Date();
         this.endDate = new Date();
         this.stompClient.send("/app/projects", {}, JSON.stringify(formData));
+        this.msg.success("Thêm mới dự án thành công!");
+        this.dataService.changeStatusLoadingAdmin(false);
+      },
+      error: (res: any) => {
+        this.dataService.changeStatusLoadingAdmin(false);
+        this.msg.error("Thêm mới dự án thất bại!")
       }
     })
   }
@@ -163,7 +174,7 @@ export class AddProjectComponent implements OnInit {
     this.thumbnail = this.fileImage[0].originFileObj!;
     this.qrImage = this.fileQr[0]
     console.log(this.thumbnail);
-    
+
 
 
     switch (info.file.status) {

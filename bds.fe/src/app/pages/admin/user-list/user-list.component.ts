@@ -11,6 +11,7 @@ export class UserListComponent implements OnInit {
   total:any=1;
   currentPage: any = 0;
   pageSize: any=10;
+  search: string = '';
 
   constructor(
     private apiService: ApiService
@@ -28,7 +29,6 @@ export class UserListComponent implements OnInit {
         this.currentPage= res.currentPage;
         this.pageSize = res.currentSize;
         console.log(this.userList);
-        
       }
     })
   }
@@ -39,5 +39,9 @@ export class UserListComponent implements OnInit {
       pageSize:this.pageSize
     }
     this.getUserList(params)
+  }
+
+  handleSearch(){
+    this.getUserList({search: this.search});
   }
 }

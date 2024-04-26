@@ -11,11 +11,16 @@ nz-carousel [nz-row]{
     background-color: #F3F4F6;
 }
 
+[nz-row]:first-child{
+    height: inherit;
+}
+
 .project-info {
     padding: 0 35px;
 }
 
 .project-info .title {
+    margin-top: 25px;
     font-weight: 500;
     margin-bottom: 12px;
 }
@@ -25,6 +30,7 @@ nz-carousel [nz-row]{
     font-family: 'Times New Roman', Times, serif;
     font-size: 25px;
     margin-bottom: 12px;
+    margin-top: 50px;
 }
 
 .project-info > button {

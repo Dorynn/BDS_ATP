@@ -12,6 +12,8 @@ export class TransactionManagementComponent implements OnInit {
   total: number = 0;
   currentPage: number = 0;
   currentSize: number = 10;
+  landName: string = '';
+  status: number = 0;
 
   constructor(
     private apiService: ApiService,
@@ -35,7 +37,7 @@ export class TransactionManagementComponent implements OnInit {
 
   transformDate(data: any) {
     let date = ''
-    date = data.slice(14) + ' - ' + data.slice(8, 10) + '/' + data.slice(5, 7) + '/' + data.slice(0, 4)
+    date = data.slice(11,16) + ' - ' + data.slice(8, 10) + '/' + data.slice(5, 7) + '/' + data.slice(0, 4)
     return date
   }
 
@@ -49,5 +51,13 @@ export class TransactionManagementComponent implements OnInit {
       pageSize: 10
     }
     this.getTransactionList(param)
+  }
+
+  handleSearchByStatus(){
+    this.getTransactionList({status: this.status})
+  }
+
+  handleSearch(){
+    this.getTransactionList({searchByLandName: this.landName})
   }
 }

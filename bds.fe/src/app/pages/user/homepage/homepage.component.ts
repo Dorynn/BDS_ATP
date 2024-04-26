@@ -8,13 +8,14 @@ import { ApiService } from '../../../services/api.service';
   styleUrl: './homepage.component.css'
 })
 export class HomepageComponent implements OnInit {
-  rangeMoney: number[] = [0, 100];
-  formatterDollar = (value: number): string => `$ ${value}`;
-  parserDollar = (value: string): string => value.replace('$ ', '');
   projectList: any = [];
   currentPage: number = 0;
   total: number = 0;
+  status: string ='';
   pageSize: number = 4;
+  provinceList: any = [];
+  projectType: string = '';
+  provinceId:string='';
 
   constructor(
     private apiService: ApiService,
@@ -22,12 +23,20 @@ export class HomepageComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.getProjectList();
-    
+    this.getProjectList({pageIndex: 0, pageSize:4});
+    this.getProvincesHaveProject()
   }
 
-  getProjectList():void {
-    this.apiService.getProjectList({pageIndex: 0, pageSize: 4}).subscribe({
+  getProvincesHaveProject(){
+    this.apiService.getProvincesHaveProject().subscribe({
+      next: (res: any) => {
+        this.provinceList = res.data;
+      }
+    })
+  }
+
+  getProjectList(params: any):void {
+    this.apiService.getProjectList(params).subscribe({
       next: (res: any) => {
         console.log(res);
         this.projectList = res.data;
@@ -37,6 +46,8 @@ export class HomepageComponent implements OnInit {
       }
     })
   }
+
+  
 
   goToProjectDetail(id: string):void {
     this.router.navigateByUrl(`/project-detail/${id}`)
@@ -49,6 +60,24 @@ export class HomepageComponent implements OnInit {
         this.projectList = res.data
       }
     })
+  }
+
+  handleFilter(){
+    let params = {
+      pageIndex:0,
+      pageSize: 4,
+      status: this.status,
+      provinceId: this.provinceId,
+      projectTypeId: this.projectType
+    }
+    this.getProjectList(params);
+  }
+
+  handleClear(){
+    this.status = '';
+    this.provinceId = '';
+    this.projectType = '';
+    this.getProjectList({pageSize:4})
   }
 
 }

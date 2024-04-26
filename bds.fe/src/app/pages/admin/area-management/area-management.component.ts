@@ -11,7 +11,9 @@ export class AreaManagementComponent implements OnInit {
   total: number = 0;
   pageSize: number = 10;
   currentPage: number = 0;
-  areaList: any = []
+  areaList: any = [];
+  searchAreaName: string = '';
+  
   constructor(
     private apiService: ApiService,
     private router: Router
@@ -42,5 +44,9 @@ export class AreaManagementComponent implements OnInit {
 
   handleChangePage(e: any){
     this.getAreaList({pageIndex: e-1, pageSize: this.pageSize})
+  }
+
+  handleSearch(){
+    this.getAreaList({areaName: this.searchAreaName})
   }
 }

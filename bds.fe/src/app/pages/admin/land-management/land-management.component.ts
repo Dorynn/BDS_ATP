@@ -19,7 +19,8 @@ export class LandManagementComponent implements OnInit {
     name: '',
     projectId: '',
     areaId: ''
-  }
+  };
+  searchText: string = '';
 
   constructor(
     private router: Router,
@@ -47,6 +48,10 @@ export class LandManagementComponent implements OnInit {
     })
   }
 
+  // getAreaList(){
+  //   this.apiService.getAreaList()
+  // }
+
   getLandList(request: any){
     this.apiService.getLandList(request).subscribe({
       next: (res: any) => {
@@ -73,5 +78,24 @@ export class LandManagementComponent implements OnInit {
       pageSize: 10
     }
     this.getLandList(param)
+  }
+
+  handleSearch(){
+    this.getLandList({searchName: this.requestParams.name})
+  }
+
+  searchByProject(){
+    if(this.requestParams.projectId == null){
+      this.getLandList({});
+    }
+    this.getLandList({projectId: this.requestParams.projectId})
+  }
+
+  searchByArea(){
+    if(this.requestParams.areaId == null){
+      this.getLandList({})
+    }
+    this.getAreaByProjectId();
+    this.getLandList({areaId: this.requestParams.areaId});
   }
 }

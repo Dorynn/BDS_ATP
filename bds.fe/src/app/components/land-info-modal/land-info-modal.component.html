@@ -1,6 +1,6 @@
 <nz-modal [(nzVisible)]="isVisible" [nzStyle]="{ top: '30px' }" (nzOnCancel)="handleCancel()" >
     <div *nzModalTitle style="padding: 0!important">
-        <img src="../../../assets/img/flat2.jpg" alt="flat-image" width="100%">
+        <img [src]="item.thumbnail??'../../../assets/img/flat2.jpg'" alt="flat-image" width="100%">
     </div>
     <div *nzModalContent>
         <h1>{{item.name}}</h1>

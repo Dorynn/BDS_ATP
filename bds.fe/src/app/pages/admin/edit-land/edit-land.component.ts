@@ -3,6 +3,7 @@ import { ActivatedRoute, RouterLinkActive } from '@angular/router';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzUploadFile } from 'ng-zorro-antd/upload';
 import { ApiService } from '../../../services/api.service';
+import { DataService } from '../../../services/data.service';
 
 const getBase64 = (file: File): Promise<string | ArrayBuffer | null> =>
   new Promise((resolve, reject) => {
@@ -39,7 +40,8 @@ export class EditLandComponent {
   constructor(
     private msg: NzMessageService,
     private apiService: ApiService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private dataService: DataService
   ) {
 
     this.getLandById();
@@ -68,7 +70,6 @@ export class EditLandComponent {
         this.loading = false;
         break;
       case 'error':
-        this.msg.error('Network error');
         this.loading = false;
         break;
     }
@@ -140,6 +141,7 @@ export class EditLandComponent {
   }
 
   handleEditLand() {
+    this.dataService.changeStatusLoadingAdmin(true);
     let formData = new FormData();
     formData.append("id", String(this.landId))
     formData.append("name", this.name);
@@ -155,7 +157,12 @@ export class EditLandComponent {
     formData.append("areaId", this.areaId)
     this.apiService.updateLand(formData).subscribe({
       next: (res: any) => {
-
+        this.dataService.changeStatusLoadingAdmin(false);
+        this.msg.success("Cập nhật khu đất thành công!");
+      },
+      error: (err: any) => {
+        this.dataService.changeStatusLoadingAdmin(false);
+        this.msg.error("Cập nhật khu đất thất bại!");
       }
     })
   }

@@ -32,7 +32,7 @@
                     <button nz-button class="background-brown" (click)="showConfirm(land, area)" [disabled]="land.status!==1">Đặt cọc ngay</button>
                 </div>
                 <div nz-col [nzSpan]="8" (click)="openLandDetailModal(land, area)">
-                    <img class="image" [src]="'../../../../assets/img/flat2.jpg'" alt="">
+                    <img class="image" [src]="land.thumbnail??'../../../../assets/img/flat2.jpg'" alt="">
                 </div>
             </div>
         </swiper-slide>
